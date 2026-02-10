@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiProgressRagDemo.Controls.MarkdownView">
+    <ScrollView>
+        <VerticalStackLayout x:Name="ContentStack"
+                             Spacing="8"
+                             Padding="0"/>
+    </ScrollView>
+</ContentView>

@@ -1,0 +1,1424 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+                    xmlns:helpers="clr-namespace:MauiProgressRagDemo.Helpers"
+                    xmlns:controls="clr-namespace:MauiProgressRagDemo.Controls"
+                    xmlns:behaviors="clr-namespace:MauiProgressRagDemo.Behaviors"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <telerik:CornerRadiusToThicknessConverter x:Key="CornerRadiusToThicknessConverter" />
+    <telerik:InvertedBooleanConverter x:Key="InvertedBooleanConverter" />
+
+    <OnPlatform x:Key="PageTopOverlapMargin" x:TypeArguments="Thickness">
+        <On Platform="WinUI" Value="0, -48, 0, 0" />
+        <On Platform="Default" Value="0" />
+    </OnPlatform>
+
+    <Style TargetType="Slider">
+        <Setter Property="MinimumTrackColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="MaximumTrackColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}" />
+        <Setter Property="ThumbColor" Value="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="MinimumTrackColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="MaximumTrackColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
+                            <Setter Property="ThumbColor" Value="{AppThemeBinding Light={StaticResource Gray300}, Dark={StaticResource Gray600}}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Page" ApplyToDerivedTypes="True">
+        <Setter Property="Padding" Value="0"/>
+        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
+    </Style>
+
+    <Style TargetType="Shell" ApplyToDerivedTypes="True">
+        <Setter Property="Shell.BackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
+        <Setter Property="Shell.ForegroundColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource SecondaryDarkText}}" />
+        <Setter Property="Shell.TitleColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource SecondaryDarkText}}" />
+        <Setter Property="Shell.DisabledColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+        <Setter Property="Shell.UnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray200}}" />
+        <Setter Property="Shell.NavBarHasShadow" Value="True" />
+        <Setter Property="Shell.FlyoutBackgroundColor" Value="Transparent" />
+        <Setter Property="Shell.TabBarBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+        <Setter Property="Shell.TabBarForegroundColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
+        <Setter Property="Shell.TabBarTitleColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
+        <Setter Property="Shell.TabBarUnselectedColor" Value="{AppThemeBinding Light={StaticResource Gray900}, Dark={StaticResource Gray200}}" />
+    </Style>
+
+    <Style TargetType="NavigationPage">
+        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource OffBlack}}" />
+        <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}" />
+        <Setter Property="IconColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource White}}" />
+    </Style>
+
+    <Style TargetType="TabbedPage">
+        <Setter Property="BarBackgroundColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Gray950}}" />
+        <Setter Property="BarTextColor" Value="{AppThemeBinding Light={StaticResource Magenta}, Dark={StaticResource White}}" />
+        <Setter Property="UnselectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray950}}" />
+        <Setter Property="SelectedTabColor" Value="{AppThemeBinding Light={StaticResource Gray950}, Dark={StaticResource Gray200}}" />
+    </Style>
+
+    <!--My styles-->
+
+    <Thickness x:Key="PageMarginLeftRight">32, 0</Thickness>
+
+
+    <x:Double x:Key="MaximumContentWidth">770</x:Double>
+
+    <VisualStateGroupList x:Key="EmptyVisualStates">
+        <VisualStateGroup Name="CommonStates">
+            <VisualState Name="Normal" />
+            <VisualState Name="MouseOver" />
+            <VisualState Name="Focused" />
+            <VisualState Name="Disabled" />
+        </VisualStateGroup>
+    </VisualStateGroupList>
+
+    <Style TargetType="Label">
+        <Setter Property="FontFamily" Value="MetricRegular" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}" />
+    </Style>
+
+    <Style x:Key="BaseLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="MetricRegular" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}" />
+    </Style>
+
+    <Style x:Key="HeaderLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="MetricMedium" />
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}" />
+    </Style>
+
+    <Style x:Key="SubHeaderLabelStyle" TargetType="Label">
+        <Setter Property="TextColor" Value="#535b6a" />
+        <Setter Property="FontFamily" Value="MetricRegular" />
+        <Setter Property="FontSize" Value="{OnIdiom Default=22, Desktop=20}" />
+    </Style>
+
+    <Style x:Key="Header24LabelStyle" TargetType="Label" BasedOn="{StaticResource HeaderLabelStyle}">
+        <Setter Property="FontSize" Value="24" />
+    </Style>
+
+    <Style x:Key="Header36LabelStyle" TargetType="Label" BasedOn="{StaticResource HeaderLabelStyle}">
+        <Setter Property="FontSize" Value="36" />
+    </Style>
+
+    <Style x:Key="RagValueHeaderLabelStyle" TargetType="Label" BasedOn="{StaticResource Header24LabelStyle}">
+        <Setter Property="Margin" Value="6, 0, 0, 0" />
+    </Style>
+
+    <Style x:Key="AgenticRagValueBackgroundGridStyle" TargetType="Grid">
+        <Setter Property="Background" Value="{StaticResource PageGradientPinkBackground}"/>
+        <Setter Property="InputTransparent" Value="True"/>
+        <Setter Property="Margin" Value="{OnPlatform Default=0, Android='-32, -20, -32, 0', iOS='-32, -20, -32, 0'}"/>
+    </Style>
+
+    <Style x:Key="AgenticRagValueBackgroundRectangleStyle" TargetType="Rectangle">
+        <Setter Property="Fill" Value="{StaticResource PageGradientPinkBackground}"/>
+        <Setter Property="StrokeThickness" Value="0"/>
+        <Setter Property="VerticalOptions" Value="Fill"/>
+        <Setter Property="HorizontalOptions" Value="Fill"/>
+        <Setter Property="InputTransparent" Value="True"/>
+        <Setter Property="Margin" Value="{OnPlatform Default=0, Android='-32, -20, -32, 0', iOS='-32, -20, -32, 0'}"/>
+    </Style>
+
+    <Style x:Key="DefaultGradientTextViewStyle" TargetType="controls:GradientTextView">
+        <Setter Property="FontSize" Value="{OnPlatform Android=40, iOS=40, MacCatalyst=53, WinUI=53}" />
+        <Setter Property="Gradient" Value="{DynamicResource DefaultGradientBrush}" />
+        <Setter Property="LetterSpacing" Value="0.15" />
+        <Setter Property="LineHeight" Value="{OnPlatform Default=1.1, Android=0.95, WinUI=0.75}" />
+        <Setter Property="HorizontalTextAlignment" Value="Start" />
+    </Style>
+
+    <Style x:Key="ShadowGridStyle" TargetType="Grid">
+        <Setter Property="Background" Value="{OnPlatform Default={DynamicResource PageShadowBrush}, Android=Transparent, iOS=Transparent}" />
+        <Setter Property="HeightRequest" Value="6" />
+        <Setter Property="ZIndex" Value="1" />
+        <Setter Property="IsVisible" Value="{OnPlatform Default=False, Android=True, iOS=True}" />
+    </Style>
+
+    <Style x:Key="HomeCardBorderStyle" TargetType="telerik:RadBorder">
+        <Setter Property="BackgroundColor" Value="{StaticResource CardBackgroundColor}" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="Padding" Value="15" />
+        <Setter Property="Margin" Value="0" />
+        <Setter Property="BorderBrush" Value="{StaticResource CardBorderColor}" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="HoverStates">
+                    <VisualState Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="{StaticResource CardBackgroundColor}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="BackgroundColor" Value="#FFFFFF" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ShadowBorderBoxStyle" TargetType="telerik:RadBorder">
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="CornerRadius" Value="28" />
+        <Setter Property="Padding" Value="{OnIdiom Phone='8, 16', Default='12, 24'}" />
+        <Setter Property="Margin" Value="{OnIdiom Phone='0, 8, 0, 0', Default='0, 12, 0, 0'}" />
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="#000000"
+                        Offset="0, 1"
+                        Opacity="0.08"
+                        Radius="3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RagValueResultsShadowBorderBoxStyle" TargetType="telerik:RadBorder">
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="BorderBrush" Value="#FFFFFF" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="Padding" Value="24, 20" />
+        <Setter Property="CornerRadius" Value="20" />
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="#000000"
+                        Offset="0, 1"
+                        Opacity="0.08"
+                        Radius="3"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="HomeCardTemplate">
+        <telerik:RadBorder x:Name="Border"
+                           Background="#FFFFFF"
+                           Padding="2"
+                           CornerRadius="18">
+            <telerik:RadBorder.Shadow>
+                <Shadow Offset="0,2" Radius="{OnPlatform Default=7, iOS=4}" Brush="#20000000" />
+            </telerik:RadBorder.Shadow>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal">
+                        <VisualState.Setters>
+                            <Setter TargetName="Border" Property="Background" Value="#FFFFFF" />
+                            <Setter TargetName="PART_EffectsView" Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+                            <Setter Property="Opacity" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource HomeCardPointerOverBrush}" />
+                            <Setter TargetName="PART_EffectsView" Property="Background" Value="#FFFFFF" />
+                            <Setter Property="Opacity" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter TargetName="Border" Property="Background" Value="{DynamicResource HomeCardPressedOverBrush}" />
+                            <Setter TargetName="PART_EffectsView" Property="Background" Value="#FFFFFF" />
+                            <Setter Property="Opacity" Value="1" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter TargetName="Border" Property="Background" Value="#FFFFFF" />
+                            <Setter TargetName="PART_EffectsView" Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+                            <Setter Property="Opacity" Value="0.6" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateManager.VisualStateGroups>
+            <telerik:RadEffectsView x:Name="PART_EffectsView"
+                                    Background="{TemplateBinding Background}"
+                                    CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource CornerRadiusToThicknessConverter}}"
+                                    Padding="{TemplateBinding Padding}">
+                <ContentPresenter telerik:ContentPresenterUtils.Content="{TemplateBinding ActualContent}" />
+            </telerik:RadEffectsView>
+        </telerik:RadBorder>
+    </ControlTemplate>
+
+    <Style x:Key="HomeCardButtonStyle" TargetType="telerik:RadTemplatedButton">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundBrush}" />
+        <Setter Property="CornerRadius" Value="17" />
+        <Setter Property="WidthRequest" Value="{OnIdiom Phone=-1, Default=240}" />
+        <Setter Property="HeightRequest" Value="76" />
+        <Setter Property="Padding" Value="12" />
+        <Setter Property="Margin" Value="{OnIdiom Phone='12,3', Desktop=7}" />
+        <Setter Property="HorizontalOptions" Value="{OnIdiom Phone=FillAndExpand, Default=Center}" />
+        <Setter Property="ControlTemplate" Value="{StaticResource HomeCardTemplate}" />
+    </Style>
+
+    <Style x:Key="HomeCardContentLayoutStyle" TargetType="HorizontalStackLayout">
+        <Setter Property="Spacing" Value="8"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+    </Style>
+
+    <Style x:Key="HomeCardLabelStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="MetricRegular"/>
+        <Setter Property="TextColor" Value="Black"/>
+    </Style>
+
+    <!-- END DEMO CARD STYLES -->
+    <Style x:Key="ShareButtonStyle" TargetType="telerik:RadTemplatedButton">
+        <Setter Property="FontFamily" Value="MetricRegular" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="{StaticResource ButtonTextColor}" />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Padding" Value="12, 4" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="CornerRadius" Value="6" />
+        <Setter Property="helpers:DesktopUtils.MouseOverCursorType" Value="Hand" />
+        <Setter Property="ToolTipProperties.Text" Value="Interaction is disabled for this demo." />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal">
+                        <VisualState.Setters>
+                            <Setter Property="Background" Value="Transparent" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="Background" Value="{DynamicResource ShareButtonPointerOverBackgroundBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource ShareButtonPointerOverBackgroundBrush}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Background" Value="{DynamicResource ShareButtonPressedBackgroundBrush}" />
+                            <Setter Property="BorderBrush" Value="{DynamicResource ShareButtonPressedBorderBrush}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="CopyButtonStyle" TargetType="telerik:RadTemplatedButton" BasedOn="{StaticResource ShareButtonStyle}">
+        <Setter Property="MinimumWidthRequest" Value="22" />
+        <Setter Property="MinimumHeightRequest" Value="22" />
+        <Setter Property="Padding" Value="3, 2" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="Courier New" />
+    </Style>
+
+    <Style x:Key="ClosePopUpButtonStyle" TargetType="telerik:RadTemplatedButton" BasedOn="{StaticResource ShareButtonStyle}">
+        <Setter Property="Padding" Value="8, 5, 8, 4" />
+        <Setter Property="Margin" Value="0, 16, 16, 0" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="FontFamily" Value="TelerikFont" />
+        <Setter Property="Content" Value="&#xe858;" />
+        <Setter Property="TextColor" Value="{DynamicResource DefaultTextColor}" />
+        <Setter Property="HorizontalOptions" Value="End" />
+        <Setter Property="CornerRadius" Value="18" />
+    </Style>
+
+    <ControlTemplate x:Key="SearchSendButtonControlTemplate">
+        <Grid>
+            <telerik:RadEffectsView x:Name="PART_EffectsView"
+                                            BackgroundColor="{TemplateBinding BackgroundColor}"
+                                            Background="{TemplateBinding Background}"
+                                            BorderColor="{TemplateBinding BorderColor}"
+                                            BorderBrush="{TemplateBinding BorderBrush}"
+                                            BorderThickness="{TemplateBinding BorderThickness}"
+                                            CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource CornerRadiusToThicknessConverter}}"
+                                            Padding="{TemplateBinding Padding}">
+                <ContentPresenter telerik:ContentPresenterUtils.Content="{TemplateBinding ActualContent}" />
+            </telerik:RadEffectsView>
+
+            <telerik:RadBorder CornerRadius="23" InputTransparent="True" BorderThickness="3" Margin="-2">
+                <telerik:RadBorder.Triggers>
+                    <DataTrigger TargetType="telerik:RadBorder"
+                                              Binding="{Binding IsPressed, Source={RelativeSource TemplatedParent}}"
+                                              Value="True">
+                        <Setter Property="BorderBrush" Value="#eef0f2" />
+                        <Setter Property="BorderThickness" Value="3" />
+                    </DataTrigger>
+                </telerik:RadBorder.Triggers>
+            </telerik:RadBorder>
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="SearchSendButtonStyle" TargetType="telerik:RadTemplatedButton">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="#FFFFFF" />
+        <Setter Property="Background" Value="#A1B0C7" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="WidthRequest" Value="40" />
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="CornerRadius" Value="50" />
+        <Setter Property="Margin" Value="{OnPlatform Default=0, WinUI='0, 1, 4, 1'}" />
+        <Setter Property="helpers:DesktopUtils.MouseOverCursorType" Value="Hand" />
+        <Setter Property="ContentTemplate">
+            <DataTemplate>
+                <Image Aspect="AspectFit"
+                       HeightRequest="16"
+                       HorizontalOptions="Center"
+                       Source="search.png"
+                       VerticalOptions="Center" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="PointerOver" />
+                    <VisualState Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Background" Value="#a1b0c7" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SearchMoreButtonStyle" TargetType="telerik:RadTemplatedButton" BasedOn="{StaticResource SearchSendButtonStyle}">
+        <Setter Property="Margin" Value="{OnPlatform Default='0', WinUI='4'}" />
+        <Setter Property="ToolTipProperties.Text" Value="Interaction is disabled for this demo." />
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="26" />
+        <Setter Property="ContentTemplate">
+            <DataTemplate>
+                <Image Aspect="AspectFit"
+                       HeightRequest="16"
+                       HorizontalOptions="Center"
+                       Source="plusicon.png"
+                       VerticalOptions="Center" />
+            </DataTemplate>
+        </Setter>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="PointerOver" />
+                    <VisualState Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Background" Value="#f5f7f9" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="Opacity" Value="0.5" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SearchSpeechToTextButtoStyle" TargetType="telerik:RadTemplatedButton" BasedOn="{StaticResource SearchMoreButtonStyle}">
+        <Setter Property="Margin" Value="{OnPlatform Default='4, 0', WinUI='4'}" />
+        <Setter Property="ContentTemplate">
+            <DataTemplate>
+                <Image Aspect="AspectFit"
+                       HeightRequest="16"
+                       HorizontalOptions="Center"
+                       Source="microphoneicon.png"
+                       VerticalOptions="Center" />
+            </DataTemplate>
+        </Setter>
+    </Style>
+
+    <ControlTemplate x:Key="PromptInputControlTemplate_WinUI">
+        <telerik:RadBorder x:Name="PART_BorderContainer"
+                           Background="{TemplateBinding Background}"
+                           BackgroundColor="{TemplateBinding BackgroundColor}"
+                           BorderColor="{TemplateBinding BorderColor}"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           BorderThickness="{TemplateBinding BorderThickness}"
+                           CornerRadius="{TemplateBinding CornerRadius}"
+                           Padding="{TemplateBinding ContentPadding}">
+            <telerik:RadBorder.Behaviors>
+                <behaviors:BorderFocusStateBehavior FocusSource="{x:Reference PART_PromptTextInput}" />
+            </telerik:RadBorder.Behaviors>
+            <VisualStateManager.VisualStateGroups>
+                <VisualStateGroupList>
+                    <VisualStateGroup x:Name="CommonStates">
+                        <VisualState x:Name="Normal" />
+                        <VisualState x:Name="PointerOver">
+                            <VisualState.Setters>
+                                <Setter TargetName="PART_BorderContainer" Property="telerik:RadBorder.BorderBrush" Value="#CED4DA" />
+                            </VisualState.Setters>
+                        </VisualState>
+                        <VisualState x:Name="Focused">
+                            <VisualState.Setters>
+                                <Setter TargetName="PART_BorderContainer" Property="telerik:RadBorder.BorderBrush" Value="{DynamicResource DefaultGradientBrush}" />
+                            </VisualState.Setters>
+                        </VisualState>
+                    </VisualStateGroup>
+                </VisualStateGroupList>
+            </VisualStateManager.VisualStateGroups>
+
+            <telerik:RadBorder.Triggers>
+                <DataTrigger TargetType="telerik:RadBorder"
+                             Binding="{Binding IsFocused, Source={x:Reference PART_PromptTextInput}}"
+                             Value="True">
+                    <Setter TargetName="PART_BorderContainer" Property="BorderBrush" Value="{DynamicResource DefaultGradientBrush}" />
+                </DataTrigger>
+            </telerik:RadBorder.Triggers>
+
+            <Grid RowDefinitions="Auto, Auto"
+                  RowSpacing="0">
+                <telerik:RadAnimatedGrid x:Name="PART_AnimatedGrid"
+                                         Grid.Row="1"
+                                         RowDefinitions="Auto, Auto, Auto"
+                                         ColumnDefinitions="Auto, *, Auto, Auto">
+
+                    <telerik:RadTemplatedButton x:Name="MoreButtonView"
+                                                Grid.Row="2"
+                                                Style="{StaticResource SearchMoreButtonStyle}"
+                                                HorizontalOptions="Start">
+                        <telerik:RadTemplatedButton.Behaviors>
+                            <behaviors:ToastMessageOnClickBehavior />
+                        </telerik:RadTemplatedButton.Behaviors>
+                    </telerik:RadTemplatedButton>
+
+                    <telerik:RadTextInput x:Name="PART_PromptTextInput"
+                                          Grid.Row="2"
+                                          Grid.Column="1"
+                                          Grid.ColumnSpan="1"
+                                          telerik:RadAnimatedGrid.Row="1"
+                                          telerik:RadAnimatedGrid.Column="0"
+                                          telerik:RadAnimatedGrid.ColumnSpan="4"
+                                          Placeholder="{TemplateBinding Placeholder}"
+                                          PlaceholderColor="{TemplateBinding PlaceholderColor}"
+                                          Padding="12, 0"
+                                          VerticalOptions="Center"
+                                          ClearButtonVisibility="Never"
+                                          telerik:StyleHelper.InheritedStyleClass="{TemplateBinding ActualStyleClass}"
+                                          Keyboard="Text"
+                                          Text="{TemplateBinding Message, Mode=TwoWay}"
+                                          ReturnCommand="{TemplateBinding SendMessageCommand}"
+                                          telerik:KeyboardHelper.IsTranslationSource="True"
+                                          AutomationId="RadPromptTextInput">
+                        <telerik:RadTextInput.Triggers>
+                            <DataTrigger TargetType="telerik:RadTextInput"
+                                         Binding="{Binding DisplayMode, Source={RelativeSource TemplatedParent}}"
+                                         Value="Expanded">
+                                <Setter Property="Grid.Row" Value="1" />
+                                <Setter Property="Grid.Column" Value="0" />
+                                <Setter Property="Grid.ColumnSpan" Value="4" />
+                            </DataTrigger>
+                            <DataTrigger TargetType="telerik:RadTextInput"
+                                         Binding="{Binding DisplayMode, Source={RelativeSource TemplatedParent}}"
+                                         Value="Compact">
+                                <Setter Property="Grid.Row" Value="2" />
+                                <Setter Property="Grid.Column" Value="1" />
+                                <Setter Property="telerik:RadAnimatedGrid.Column" Value="1" />
+                                <Setter Property="telerik:RadAnimatedGrid.Row" Value="2" />
+                                <Setter Property="telerik:RadAnimatedGrid.ColumnSpan" Value="1" />
+                            </DataTrigger>
+                        </telerik:RadTextInput.Triggers>
+                    </telerik:RadTextInput>
+
+                    <telerik:RadTemplatedButton x:Name="SpeechToTextButton"
+                                                Grid.Row="2"
+                                                Grid.Column="2"
+                                                Style="{StaticResource SearchSpeechToTextButtoStyle}"
+                                                HorizontalOptions="Start">
+                        <telerik:RadTemplatedButton.Behaviors>
+                            <behaviors:ToastMessageOnClickBehavior />
+                        </telerik:RadTemplatedButton.Behaviors>
+                    </telerik:RadTemplatedButton>
+
+                    <telerik:RadSpeechToTextButton x:Name="PART_SpeechToTextButton"
+                                                   Grid.Row="2"
+                                                   Grid.Column="2"
+                                                   IsEnabled="False"
+                                                   IsVisible="False"
+                                                   telerik:StyleHelper.InheritedStyleClass="{TemplateBinding ActualStyleClass}"
+                                                   Style="{Binding ActualSpeechToTextButtonStyle, Source={RelativeSource AncestorType={x:Type telerik:RadPromptInput}}}"
+                                                   AutomationId="RadPromptInputSpeechToTextButton" />
+
+                    <telerik:RadTemplatedButton x:Name="SendButton"
+                                                Grid.Row="2"
+                                                Grid.Column="3"
+                                                Command="{TemplateBinding SendMessageCommand}"
+                                                Style="{StaticResource SearchSendButtonStyle}"
+                                                ControlTemplate="{StaticResource SearchSendButtonControlTemplate}"
+                                                AutomationId="RadPromptInputSendMessageButton">
+                        <telerik:RadTemplatedButton.Triggers>
+                            <DataTrigger TargetType="telerik:RadTemplatedButton"
+                                         Binding="{Binding IsFocused, Source={x:Reference PART_PromptTextInput}}"
+                                         Value="True">
+                                <Setter Property="Background" Value="{StaticResource ButtonGradientBrush}" />
+                            </DataTrigger>
+                        </telerik:RadTemplatedButton.Triggers>
+                    </telerik:RadTemplatedButton>
+
+                </telerik:RadAnimatedGrid>
+            </Grid>
+        </telerik:RadBorder>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="PromptInputControlTemplate">
+        <telerik:RadBorder x:Name="OuterBorder"
+                           Background="{TemplateBinding BorderBrush}"
+                           CornerRadius="{TemplateBinding CornerRadius}"
+                           Padding="2">
+            <telerik:RadBorder.Triggers>
+                <DataTrigger TargetType="telerik:RadBorder"
+                             Binding="{Binding IsFocused, Source={x:Reference PART_PromptTextInput}}"
+                             Value="True">
+                    <Setter TargetName="OuterBorder" Property="Background" Value="{DynamicResource DefaultGradientBrush}" />
+                </DataTrigger>
+            </telerik:RadBorder.Triggers>
+
+            <telerik:RadBorder x:Name="InnerBorder"
+                               Background="{StaticResource InputBackground}"
+                               CornerRadius="25">
+                <Grid RowDefinitions="Auto, Auto"
+                      RowSpacing="0"
+                      VerticalOptions="Center">
+
+                    <telerik:RadAnimatedGrid x:Name="PART_AnimatedGrid"
+                                             Grid.Row="1" Padding="4"
+                                             RowDefinitions="Auto, Auto, Auto"
+                                             ColumnDefinitions="Auto, *, Auto, Auto">
+
+                        <telerik:RadTemplatedButton x:Name="MoreButtonView"
+                                                    Grid.Row="2"
+                                                    Style="{StaticResource SearchMoreButtonStyle}"
+                                                    HorizontalOptions="Start">
+                            <telerik:RadTemplatedButton.Behaviors>
+                                <behaviors:ToastMessageOnClickBehavior />
+                            </telerik:RadTemplatedButton.Behaviors>
+                        </telerik:RadTemplatedButton>
+
+                        <telerik:RadTextInput x:Name="PART_PromptTextInput"
+                                              Grid.Row="2"
+                                              Grid.Column="1"
+                                              Grid.ColumnSpan="1"
+                                              telerik:RadAnimatedGrid.Row="1"
+                                              telerik:RadAnimatedGrid.Column="0"
+                                              telerik:RadAnimatedGrid.ColumnSpan="4"
+                                              Padding="{OnIdiom Default='8, 0', Desktop='12, 0'}"
+                                              Placeholder="{TemplateBinding Placeholder}"
+                                              PlaceholderColor="{TemplateBinding PlaceholderColor}"
+                                              VerticalOptions="Center"
+                                              ClearButtonVisibility="Never"
+                                              Keyboard="Text" 
+                                              Text="{TemplateBinding Message, Mode=TwoWay}"
+                                              telerik:KeyboardHelper.IsTranslationSource="True"
+                                              ReturnCommand="{TemplateBinding SendMessageCommand}"
+                                              AutomationId="RadPromptTextInput">
+                            <telerik:RadTextInput.Triggers>
+                                <DataTrigger TargetType="telerik:RadTextInput"
+                                             Binding="{Binding DisplayMode, Source={RelativeSource TemplatedParent}}"
+                                             Value="Expanded">
+                                    <Setter Property="Grid.Row" Value="1"/>
+                                    <Setter Property="Grid.Column" Value="0"/>
+                                    <Setter Property="Grid.ColumnSpan" Value="4"/>
+                                </DataTrigger>
+                                <DataTrigger TargetType="telerik:RadTextInput"
+                                             Binding="{Binding DisplayMode, Source={RelativeSource TemplatedParent}}"
+                                             Value="Compact">
+                                    <Setter Property="Grid.Row" Value="2" />
+                                    <Setter Property="Grid.Column" Value="1" />
+                                    <Setter Property="telerik:RadAnimatedGrid.Column" Value="1" />
+                                    <Setter Property="telerik:RadAnimatedGrid.Row" Value="2" />
+                                    <Setter Property="telerik:RadAnimatedGrid.ColumnSpan" Value="1" />
+                                </DataTrigger>
+                            </telerik:RadTextInput.Triggers>
+                        </telerik:RadTextInput>
+
+                        <telerik:RadTemplatedButton x:Name="SpeechToTextButton"
+                                                    Grid.Row="2"
+                                                    Grid.Column="2"
+                                                    Style="{StaticResource SearchSpeechToTextButtoStyle}"
+                                                    HorizontalOptions="Start">
+                            <telerik:RadTemplatedButton.Behaviors>
+                                <behaviors:ToastMessageOnClickBehavior />
+                            </telerik:RadTemplatedButton.Behaviors>
+                        </telerik:RadTemplatedButton>
+
+                        <telerik:RadSpeechToTextButton x:Name="PART_SpeechToTextButton"
+                                                       Grid.Row="2"
+                                                       Grid.Column="2"
+                                                       IsEnabled="False"
+                                                       IsVisible="False"
+                                                       Style="{Binding ActualSpeechToTextButtonStyle, Source={RelativeSource AncestorType={x:Type telerik:RadPromptInput}}}"
+                                                       AutomationId="RadPromptInputSpeechToTextButton"/>
+
+                        <telerik:RadTemplatedButton x:Name="SendButton"
+                                                    Grid.Row="2"
+                                                    Grid.Column="3"
+                                                    Command="{TemplateBinding SendMessageCommand}"
+                                                    Style="{StaticResource SearchSendButtonStyle}"
+                                                    ControlTemplate="{StaticResource SearchSendButtonControlTemplate}"
+                                                    AutomationId="RadPromptInputSendMessageButton">
+                            <telerik:RadTemplatedButton.Triggers>
+                                <DataTrigger TargetType="telerik:RadTemplatedButton"
+                                             Binding="{Binding IsFocused, Source={x:Reference PART_PromptTextInput}}"
+                                             Value="True">
+                                    <Setter Property="Background"
+                                            Value="{StaticResource ButtonGradientBrush}" />
+                                </DataTrigger>
+                            </telerik:RadTemplatedButton.Triggers>
+                        </telerik:RadTemplatedButton>
+                    </telerik:RadAnimatedGrid>
+                </Grid>
+            </telerik:RadBorder>
+        </telerik:RadBorder>
+    </ControlTemplate>
+
+    <Style TargetType="telerik:RadPromptInput">
+        <Setter Property="ContentPadding" Value="0" />
+        <Setter Property="Padding" Value="0" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="BorderBrush" Value="{DynamicResource DefaultBorderColor}" />
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="PlaceholderColor" Value="{StaticResource PlaceholderColor}" />
+        <Setter Property="MaximumWidthRequest" Value="{StaticResource MaximumContentWidth}" />
+        <Setter Property="MinimumHeightRequest" Value="50" />
+        <Setter Property="CornerRadius" Value="26" />
+        <Setter Property="DisplayMode" Value="Compact" />
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Offset="0, 2" Radius="{OnPlatform Default=7, iOS=4}" Brush="#16000000" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ControlTemplate" Value="{OnPlatform Default={StaticResource PromptInputControlTemplate}, WinUI={StaticResource PromptInputControlTemplate_WinUI}}" />
+    </Style>
+
+    <ControlTemplate x:Key="NavigationControlTemplate" x:DataType="telerik:RadNavigationView">
+        <telerik:RadBorder BackgroundColor="{TemplateBinding BackgroundColor}"
+                           Background="{TemplateBinding Background}"
+                           BorderColor="{TemplateBinding BorderColor}"
+                           BorderBrush="{TemplateBinding BorderBrush}"
+                           BorderThickness="{TemplateBinding BorderThickness}"
+                           CornerRadius="{TemplateBinding CornerRadius}"
+                           Padding="{TemplateBinding ContentPadding}">
+            <telerik:NavigationViewLayout DisplayMode="{TemplateBinding DisplayMode}"
+                                          CompactPaneWidth="{TemplateBinding CompactPaneWidth}">
+                <telerik:NavigationViewLayout.Header>
+                    <telerik:NavigationViewHeader Text="{TemplateBinding HeaderText}"
+                                                  DisplayMode="{TemplateBinding DisplayMode}"
+                                                  ExpandedWidth="{TemplateBinding ExpandedPaneWidth}"
+                                                  CompactWidth="{TemplateBinding CompactPaneWidth}"
+                                                  IsHeaderButtonToggled="{TemplateBinding IsPaneOpen}"
+                                                  IsEnabled="{TemplateBinding IsEnabled}"
+                                                  ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                  Style="{TemplateBinding HeaderStyle}" />
+                </telerik:NavigationViewLayout.Header>
+                <telerik:NavigationViewLayout.Pane>
+                    <telerik:NavigationViewPane x:Name="PART_NavigationViewPane"
+                                                IsOpen="{TemplateBinding IsPaneOpen}"
+                                                IsEnabled="{TemplateBinding IsEnabled}"
+                                                DisplayMode="{TemplateBinding DisplayMode}"
+                                                ExpandedWidth="{TemplateBinding ExpandedPaneWidth}"
+                                                CompactWidth="{TemplateBinding CompactPaneWidth}"
+                                                Style="{TemplateBinding PaneStyle}" />
+                </telerik:NavigationViewLayout.Pane>
+                <telerik:NavigationViewLayout.Overlay>
+                    <telerik:NavigationViewDismissOverlay BackgroundColor="{TemplateBinding DismissOverlayColor}"
+                                                          Background="{TemplateBinding DismissOverlayBrush}"
+                                                          DismissCommand="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadNavigationView}}, Path=ClosePaneCommand}"
+                                                          IsVisible="{TemplateBinding IsDismissOverlayVisible}" />
+                </telerik:NavigationViewLayout.Overlay>
+                <ContentPresenter />
+            </telerik:NavigationViewLayout>
+        </telerik:RadBorder>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="NavigationPaneControlTemplate">
+        <Grid Background="{DynamicResource PaneShadowGradientBrush}">
+            <Image Source="menubgr.png"
+                  Opacity="0.55"
+                  Aspect="AspectFill"
+                  HorizontalOptions="End"
+                  VerticalOptions="Fill" />
+            <Grid RowDefinitions="Auto, *, Auto" Margin="{TemplateBinding ContentPadding}">
+                <telerik:NavigationViewPaneHeader Grid.Row="0"
+                                                  Style="{TemplateBinding HeaderStyle}"
+                                                  ControlTemplate="{TemplateBinding HeaderTemplate}"
+                                                  Content="{Binding Source={RelativeSource AncestorType={x:Type telerik:NavigationViewPane}}, Path=HeaderContent}"
+                                                  IsVisible="{TemplateBinding HasHeaderItems}"
+                                                  IsEnabled="{TemplateBinding IsEnabled}" />
+                <ContentPresenter Grid.Row="1" />
+                <telerik:NavigationViewPaneFooter Grid.Row="2"
+                                                  Style="{TemplateBinding FooterStyle}"
+                                                  ControlTemplate="{TemplateBinding FooterTemplate}"
+                                                  Content="{Binding Source={RelativeSource AncestorType={x:Type telerik:NavigationViewPane}}, Path=FooterContent}"
+                                                  IsVisible="{TemplateBinding HasFooterItems}"
+                                                  IsEnabled="{TemplateBinding IsEnabled}"
+                                                  Margin="12, 0, 0, 8"/>
+            </Grid>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="NavigationPaneControlTemplate_Mobile">
+    </ControlTemplate>
+
+    <DataTemplate x:Key="ItemTemplate">
+        <Grid Margin="0, 0, 8, 0">
+            <Label Text="{Binding DisplayName}"
+                   TextColor="{Binding TextColor, Source={RelativeSource AncestorType={x:Type telerik:NavigationViewItemView}}}"
+                   VerticalOptions="Center" />
+        </Grid>
+    </DataTemplate>
+
+    <ControlTemplate x:Key="MenuNavigationItemNoImageTemplate">
+        <Grid BackgroundColor="Transparent">
+            <telerik:RadBorder BackgroundColor="{TemplateBinding BackgroundColor}"
+                               Background="{TemplateBinding Background}"
+                               BorderColor="{TemplateBinding BorderColor}"
+                               BorderBrush="{TemplateBinding BorderBrush}"
+                               BorderThickness="{TemplateBinding BorderThickness}"
+                               CornerRadius="{TemplateBinding CornerRadius}"
+                               Margin="{TemplateBinding ContentPadding}"
+                               Shadow="{TemplateBinding Shadow}" />
+            <Grid ColumnDefinitions="*, 32"
+                  ColumnSpacing="{TemplateBinding Spacing}">
+                <Grid Grid.Column="1">
+                    <Image WidthRequest="{TemplateBinding ImageWidth}"
+                           HeightRequest="{TemplateBinding ImageHeight}" />
+                </Grid>
+                <ContentPresenter Grid.Column="0" Margin="12, 0, 0, 0" />
+            </Grid>
+        </Grid>
+    </ControlTemplate>
+
+    <Style x:Key="MenuNavigationItemStyle" TargetType="telerik:NavigationViewItemView">
+        <Setter Property="ToolTipProperties.Text" Value="Interaction is disabled for this demo." />
+        <Setter Property="TextColor" Value="{StaticResource NavigationItemTextColor}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="ContentPadding" Value="0, 2" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Spacing" Value="0" />
+        <Setter Property="HeightRequest" Value="44" />
+        <Setter Property="FontFamily" Value="MetricRegular" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="IsSelectable" Value="False" />
+        <Setter Property="helpers:DesktopUtils.MouseOverCursorType" Value="Hand" />
+        <Setter Property="ControlTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid BackgroundColor="Transparent">
+                        <telerik:RadBorder BackgroundColor="{TemplateBinding BackgroundColor}"
+                                           Background="{TemplateBinding Background}"
+                                           BorderColor="{TemplateBinding BorderColor}"
+                                           BorderBrush="{TemplateBinding BorderBrush}"
+                                           BorderThickness="{TemplateBinding BorderThickness}"
+                                           CornerRadius="{TemplateBinding CornerRadius}"
+                                           Margin="{TemplateBinding ContentPadding}"
+                                           Shadow="{TemplateBinding Shadow}" />
+                        <Grid ColumnDefinitions="40, *"
+                              ColumnSpacing="{TemplateBinding Spacing}">
+                            <Grid WidthRequest="{TemplateBinding LeadingWidth}">
+                                <Image Source="{TemplateBinding ActualImageSource}"
+                                       Aspect="{TemplateBinding ImageAspect}"
+                                       WidthRequest="{TemplateBinding ImageWidth}"
+                                       HeightRequest="{TemplateBinding ImageHeight}" />
+                            </Grid>
+                            <ContentPresenter Grid.Column="1" />
+                        </Grid>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="telerik:NavigationViewItemView.BorderBrush" Value="{StaticResource MenuBorderColor}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Selected" />
+                    <VisualState Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="telerik:NavigationViewItemView.TextColor" Value="#A1B0C7" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="MenuNavigationFooterItemStyle" TargetType="telerik:NavigationViewItemView" BasedOn="{StaticResource MenuNavigationItemStyle}">
+        <Setter Property="VisualStateManager.VisualStateGroups" Value="{StaticResource EmptyVisualStates}" />
+        <Setter Property="ImageWidth" Value="48" />
+        <Setter Property="ContentPadding" Value="0" />
+        <Setter Property="ContentTemplate">
+            <DataTemplate>
+                <VerticalStackLayout Margin="4, 4, 0, 0" Spacing="0">
+                    <Label Text="John Smith" />
+                    <Label Text="Manager" Opacity="0.5" LineHeight="0.95" />
+                </VerticalStackLayout>
+            </DataTemplate>
+        </Setter>
+    </Style>
+    <Style TargetType="telerik:NavigationViewItemView" BasedOn="{StaticResource MenuNavigationItemStyle}" />
+
+    <Style x:Key="NavigationPaneHeaderStyle" TargetType="telerik:NavigationViewPaneHeader">
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="ContentPadding" Value="0, 0, 0, 16" />
+    </Style>
+
+    <Style x:Key="NavigationPaneFooterStyle" TargetType="telerik:NavigationViewPaneHeader">
+        <Setter Property="BorderThickness" Value="0" />
+    </Style>
+
+    <Style x:Key="NavigationPaneStyle" TargetType="telerik:NavigationViewPane">
+        <Setter Property="ControlTemplate" Value="{OnIdiom Phone={StaticResource NavigationPaneControlTemplate_Mobile}, Default={StaticResource NavigationPaneControlTemplate}}" />
+        <Setter Property="BorderThickness" Value="0, 0, 1, 0" />
+        <Setter Property="BorderColor" Value="{StaticResource MenuBorderLightColor}" />
+        <Setter Property="Background" Value="{DynamicResource MenuBackgroundBrush}" />
+        <Setter Property="ContentPadding" Value="8" />
+        <Setter Property="VerticalScrollBarVisibility" Value="Never" />
+        <Setter Property="HeaderStyle" Value="{StaticResource NavigationPaneHeaderStyle}" />
+        <Setter Property="FooterStyle" Value="{StaticResource NavigationPaneFooterStyle}" />
+    </Style>
+
+    <Style x:Key="NavigationHeaderStyle" TargetType="telerik:NavigationViewHeader">
+        <Setter Property="IsVisible" Value="False" />
+        <Setter Property="Background" Value="{DynamicResource MenuBackgroundBrush}" />
+        <Setter Property="BorderThickness" Value="0, 0, 1 ,0" />
+        <Setter Property="BorderColor" Value="{StaticResource MenuBorderLightColor}" />
+    </Style>
+
+    <Style x:Key="GradientPillButtonStyle" TargetType="telerik:RadTemplatedButton">
+        <Setter Property="HeightRequest" Value="52"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="FontFamily" Value="MetricMedium"/>
+        <Setter Property="TextColor" Value="#FFFFFF"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="0, 28, 0, 16"/>
+        <Setter Property="Padding" Value="24, 0"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalTextAlignment" Value="Center"/>
+        <Setter Property="CornerRadius" Value="24"/>
+        <Setter Property="Shadow" Value="{StaticResource ShadowElevation3}" />
+        <Setter Property="Background">
+            <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                <GradientStop Color="#c158e4" Offset="0.08"/>
+                <GradientStop Color="#001dff" Offset="1.10"/>
+            </LinearGradientBrush>
+        </Setter>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="Background" Value="#000000" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Background" Value="#000000" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="SuggestionsButtonStyle" TargetType="telerik:RadTemplatedButton">
+        <Setter Property="TextColor" Value="#000000" />
+        <Setter Property="Background" Value="#FDFBFF" />
+        <Setter Property="BorderBrush" Value="#FFFFFF" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="MinimumHeightRequest" Value="36" />
+        <Setter Property="Padding" Value="16, 6" />
+        <Setter Property="Margin" Value="{OnIdiom Default='0, 0, 0, 10', Desktop='0, 0, 8, 8'}" />
+        <Setter Property="CornerRadius" Value="16" />
+        <Setter Property="Shadow">
+            <Setter.Value>
+                <Shadow Brush="#000000" Offset="0, 2" Opacity="{OnIdiom Default=0.10, Desktop=0.09}" Radius="3"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="ContentTemplate">
+            <DataTemplate>
+                <HorizontalStackLayout Spacing="6" VerticalOptions="Center">
+                    <Label Text="{Binding Content, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"
+                           TextColor="{Binding TextColor, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"
+                           Margin="{OnPlatform Android='0, 0, 16, 0', iOS='0, 0, 16, 0'}"
+                           FontSize="{OnPlatform Default=16, WinUI=14}" 
+                           MaximumWidthRequest="{OnPlatform Android=300, iOS=320}"
+                           VerticalTextAlignment="Center"
+                           LineBreakMode="WordWrap"
+                           Style="{StaticResource BaseLabelStyle}" />
+                </HorizontalStackLayout>
+            </DataTemplate>
+        </Setter>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState x:Name="PointerOver">
+                        <VisualState.Setters>
+                            <Setter Property="Background" Value="#FFFFFF" />
+                            <Setter Property="BorderBrush" Value="{StaticResource AccentBlueColor}" />
+                            <Setter Property="TextColor" Value="{StaticResource AccentBlueColor}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Pressed">
+                        <VisualState.Setters>
+                            <Setter Property="Background" Value="#FFFFFF" />
+                            <Setter Property="BorderBrush" Value="{StaticResource AccentBlueColor}" />
+                            <Setter Property="TextColor" Value="{StaticResource AccentBlueColor}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="EditorStyle" TargetType="telerik:RadEditor">
+        <Setter Property="MinimumHeightRequest" Value="116" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource InputTextColor}" />
+        <Setter Property="TextColor" Value="{DynamicResource InputTextColor}" />
+        <Setter Property="BackgroundColor" Value="#FFFFFF" />
+        <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="ControlTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <Grid RowDefinitions="*, Auto"
+                          ColumnDefinitions="*, Auto">
+                        <Grid ColumnDefinitions="*, Auto"
+                              telerik:ViewUtils.CornerRadius="10">
+                            <telerik:RadMultilineTextInput Text="{TemplateBinding Text, Mode=TwoWay}"
+                                                        Margin="{OnPlatform WinUI='0, 0, 16, 0'}"
+                                                        Style="{TemplateBinding ActualTextInputStyle}"
+                                                        AutomationId="EntryTextInput" />
+                            <telerik:RadTemplatedButton Style="{TemplateBinding ActualClearButtonStyle}"
+                                                        AutomationId="EntryClearButton" />
+                        </Grid>
+                        <telerik:RadBorder CornerRadius="10"
+                                           BorderBrush="{StaticResource EditorBorderBrush}"
+                                           InputTransparent="True">
+                            <telerik:RadBorder.Triggers>
+                                <DataTrigger TargetType="telerik:RadBorder"
+                                             Binding="{Binding IsFocused, Source={RelativeSource TemplatedParent}}"
+                                             Value="True">
+                                    <Setter Property="BorderThickness" Value="4" />
+                                </DataTrigger>
+                            </telerik:RadBorder.Triggers>
+                            <telerik:RadBorder InputTransparent="True"
+                                               BorderBrush="{TemplateBinding BorderBrush}"
+                                               BorderThickness="{TemplateBinding BorderThickness}"
+                                               CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource CornerRadiusToThicknessConverter}}" />
+                        </telerik:RadBorder>
+                        <Image Grid.Column="1"
+                               Style="{TemplateBinding ActualValidationErrorImageStyle}"
+                               AutomationId="RadEntryErrorIndicator" />
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup x:Name="CommonStates">
+                    <VisualState x:Name="Normal" />
+                    <VisualState Name="MouseOver">
+                        <VisualState.Setters>
+                            <Setter Property="BorderBrush" Value="{StaticResource DefaultTextColorAlpha33}" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState Name="Focused">
+                        <VisualState.Setters>
+                            <Setter Property="BorderBrush" Value="{StaticResource ActiveBlueColorAlpha40}" />
+                            <Setter Property="BorderThickness" Value="2" />
+                        </VisualState.Setters>
+                    </VisualState>
+                    <VisualState x:Name="Disabled">
+                        <VisualState.Setters>
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RagValueCardButtonStyle" TargetType="telerik:RadToggleButton">
+        <Setter Property="MinimumWidthRequest" Value="218" />
+        <Setter Property="HeightRequest" Value="68" />
+        <Setter Property="Padding" Value="24, 0" />
+        <Setter Property="FontFamily" Value="MetricRegular" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="{StaticResource RagValueTextColor}" />
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="Shadow" Value="{x:Null}" />
+        <Setter Property="Margin" Value="6" />
+        <Setter Property="VisualStateManager.VisualStateGroups">
+            <VisualStateGroupList>
+                <VisualStateGroup Name="CommonStates">
+                    <VisualState Name="Normal" />
+                    <VisualState Name="MouseOver" />
+                    <VisualState Name="Pressed" />
+                    <VisualState Name="Disabled">
+                        <VisualState.Setters>
+                            <Setter Property="Opacity" Value="0.5" />
+                        </VisualState.Setters>
+                    </VisualState>
+                </VisualStateGroup>
+            </VisualStateGroupList>
+        </Setter>
+    </Style>
+
+    <Style x:Key="RagValueCardItemStyle" TargetType="telerik:RadCollectionViewItemView">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="Shadow" Value="{x:Null}" />
+        <Setter Property="ControlTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ContentPresenter />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VisualStateManager.VisualStateGroups" Value="{StaticResource EmptyVisualStates}" />
+    </Style>
+
+    <Style x:Key="RagValueCardPressedBorderStyle" TargetType="telerik:RadBorder">
+        <Setter Property="BorderBrush" Value="#EDEFF1" />
+        <Setter Property="BorderThickness" Value="4" />
+        <Setter Property="CornerRadius" Value="14" />
+        <Setter Property="InputTransparent" Value="True" />
+        <Setter Property="Margin" Value="2" />
+        <Setter Property="IsVisible" Value="False" />
+    </Style>
+
+    <Style x:Key="RagValueCardBorderStyle" TargetType="telerik:RadBorder">
+        <Setter Property="Background" Value="#FFFFFF" />
+        <Setter Property="BorderBrush" Value="{StaticResource ButtonBorderBrush}" />
+        <Setter Property="BorderThickness" Value="2" />
+        <Setter Property="CornerRadius" Value="12" />
+        <Setter Property="HeightRequest" Value="68" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="Margin" Value="6" />
+        <Setter Property="MinimumWidthRequest" Value="218" />
+        <Setter Property="Shadow" Value="{x:Null}" />
+        <Setter Property="Padding" Value="16, 0" />
+    </Style>
+
+    <Style x:Key="RagValueCardLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="MetricRegular" />
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="HorizontalTextAlignment" Value="Center" />
+        <Setter Property="TextColor" Value="{StaticResource RagValueTextColor}" />
+        <Setter Property="VerticalTextAlignment" Value="Center" />
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+    </Style>
+
+    <Style x:Key="RagValueResultLabelTitleStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+        <Setter Property="FontSize" Value="16" />
+        <Setter Property="TextColor" Value="{StaticResource DefaultTextColor}" />
+        <Setter Property="Opacity" Value="0.5" />
+        <Setter Property="LineBreakMode" Value="NoWrap" />
+    </Style>
+
+    <Style x:Key="RagValueResultLabelValueStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+        <Setter Property="FontSize" Value="20" />
+        <Setter Property="FontAttributes" Value="Bold" />
+        <Setter Property="LineBreakMode" Value="WordWrap" />
+    </Style>
+
+    <Style x:Key="RagValueResultCardContainerStyle" TargetType="VerticalStackLayout">
+        <Setter Property="Spacing" Value="6" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+    </Style>
+
+    <Style x:Key="RagValueResultsLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+        <Setter Property="FontSize" Value="{OnIdiom Phone=16, Default=14}" />
+        <Setter Property="TextColor" Value="{StaticResource RagValueResultsTextColor}" />
+    </Style>
+
+    <Style x:Key="RagValueResultsHeaderBackgroundBoxStyle" TargetType="BoxView">
+        <Setter Property="InputTransparent" Value="True"/>
+        <Setter Property="Background" Value="{DynamicResource RagValueResultsHeaderBackgroundBrush}" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+    </Style>
+
+    <Style x:Key="RagValueResultsBottomShadowBoxStyle" TargetType="Rectangle">
+        <Setter Property="InputTransparent" Value="True"/>
+        <Setter Property="VerticalOptions" Value="End"/>
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="Opacity" Value="{OnPlatform Default=0.2, MacCatalyst=0.1, WinUI=1}" />
+        <Setter Property="HeightRequest" Value="{OnPlatform Default=35, MacCatalyst=25, WinUI=25}" />
+        <Setter Property="Fill" Value="{OnIdiom Default={DynamicResource RagValueResultsBottomShadowBrush}, Desktop={DynamicResource RagValueResultsBottomShadowBrush}}" />
+    </Style>
+
+    <Style x:Key="RagValueResultsBottomDividerStyle" TargetType="Rectangle">
+        <Setter Property="InputTransparent" Value="True"/>
+        <Setter Property="HeightRequest" Value="1"/>
+        <Setter Property="Fill" Value="#000000" />
+        <Setter Property="Opacity" Value="0.08"/>
+        <Setter Property="VerticalOptions" Value="End"/>
+        <Setter Property="StrokeThickness" Value="0" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+    </Style>
+
+    <Style x:Key="RagValueResultsGradientBoxStyle" TargetType="BoxView">
+        <Setter Property="Background" Value="{DynamicResource RagValueResultsLinearBackgroundBrush}" />
+        <Setter Property="InputTransparent" Value="True" />
+        <Setter Property="HeightRequest" Value="120" />
+        <Setter Property="HorizontalOptions" Value="Fill" />
+        <Setter Property="VerticalOptions" Value="End" />
+    </Style>
+
+    <Style x:Key="ChatViewHeaderSeparatorStyle" TargetType="telerik:RadBorder">
+        <Setter Property="Background" Value="{DynamicResource DefaultBackground}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource ChatViewHeaderSeparatorBorderBrush}" />
+        <Setter Property="BorderThickness" Value="0, 0, 0, 1" />
+        <Setter Property="Margin" Value="0, 0, 0, 8" />
+        <Setter Property="Shadow" Value="{StaticResource ChatViewHeaderSeparatorShadow}" />
+    </Style>
+
+    <Style x:Key="ChatViewHeaderGridStyle" TargetType="Grid">
+        <Setter Property="Margin" Value="0, 0, 0, 8" />
+        <Setter Property="Padding" Value="16, 8" />
+        <Setter Property="VerticalOptions" Value="Start" />
+    </Style>
+
+    <!--Chat styles-->
+    <Style x:Key="IncomingSingleMessageBorderStyle" TargetType="telerik:RadBorder">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="Margin" Value="0, 8" />
+        <Setter Property="Padding" Value="0, 8" />
+    </Style>
+
+    <ControlTemplate x:Key="ChatIncomingFirstAndSingleTextMessageViewControlTemplate">
+        <Grid>
+            <telerik:RadLayout>
+                <Image Style="{TemplateBinding ActualImageStyle}" />
+                <telerik:RadBorder Style="{TemplateBinding ActualBorderStyle}">
+                    <controls:MarkdownView Text="{TemplateBinding Item.Text}" />
+                </telerik:RadBorder>
+            </telerik:RadLayout>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ChatIncomingMiddleAndLastTextMessageViewControlTemplate">
+        <Grid>
+            <telerik:RadBorder Style="{TemplateBinding ActualBorderStyle}">
+                <controls:MarkdownView Text="{TemplateBinding Item.Text}" />
+            </telerik:RadBorder>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ChatOutgoingFirstAndSingleTextMessageViewControlTemplate">
+        <Grid ColumnDefinitions="{OnIdiom Default='2*, 8*', Desktop='3*, 7*'}">
+            <telerik:RadLayout Grid.Column="1">
+                <Image Source="draweruser.png" Aspect="Center" HorizontalOptions="End" />
+                <telerik:RadBorder Style="{TemplateBinding ActualBorderStyle}" Margin="0, 4, 42, 8">
+                    <Label Text="{TemplateBinding Item.Text}" Style="{TemplateBinding ActualLabelStyle}" />
+                </telerik:RadBorder>
+            </telerik:RadLayout>
+        </Grid>
+    </ControlTemplate>
+
+    <ControlTemplate x:Key="ChatOutgoingMiddleAndLastTextMessageViewControlTemplate">
+        <Grid ColumnDefinitions="{OnIdiom Default='2*, 8*', Desktop='3*, 7*'}">
+            <telerik:RadBorder Grid.Column="1" Style="{TemplateBinding ActualBorderStyle}" Margin="0, 4, 42, 4">
+                <Label Text="{TemplateBinding Item.Text}" Style="{TemplateBinding ActualLabelStyle}" />
+            </telerik:RadBorder>
+        </Grid>
+    </ControlTemplate>
+
+    <Style TargetType="telerik:ChatIncomingSingleTextMessageView">
+        <Setter Property="ControlTemplate" Value="{StaticResource ChatIncomingFirstAndSingleTextMessageViewControlTemplate}" />
+        <Setter Property="BorderStyle" Value="{StaticResource IncomingSingleMessageBorderStyle}" />
+    </Style>
+
+    <Style TargetType="telerik:ChatIncomingFirstTextMessageView">
+        <Setter Property="ControlTemplate" Value="{StaticResource ChatIncomingFirstAndSingleTextMessageViewControlTemplate}" />
+        <Setter Property="BorderStyle" Value="{StaticResource IncomingSingleMessageBorderStyle}" />
+    </Style>
+
+    <Style TargetType="telerik:ChatIncomingMiddleTextMessageView">
+        <Setter Property="ControlTemplate" Value="{StaticResource ChatIncomingMiddleAndLastTextMessageViewControlTemplate}" />
+        <Setter Property="BorderStyle" Value="{StaticResource IncomingSingleMessageBorderStyle}" />
+    </Style>
+
+    <Style TargetType="telerik:ChatIncomingLastTextMessageView">
+        <Setter Property="ControlTemplate" Value="{StaticResource ChatIncomingMiddleAndLastTextMessageViewControlTemplate}" />
+        <Setter Property="BorderStyle" Value="{StaticResource IncomingSingleMessageBorderStyle}" />
+    </Style>
+
+    <Style x:Key="ChatOutgoingLabelStyle" TargetType="Label" BasedOn="{StaticResource BaseLabelStyle}">
+        <Setter Property="FontSize" Value="16"/>
+        <Setter Property="FontFamily" Value="MetricRegular"/>
+        <Setter Property="Margin" Value="3, 6"/>
+        <Setter Property="TextColor" Value="{StaticResource ColorWhite}"/>
+    </Style>
+
+    <Style TargetType="telerik:ChatOutgoingSingleTextMessageView">
+        <Setter Property="ControlTemplate" Value="{StaticResource ChatOutgoingFirstAndSingleTextMessageViewControlTemplate}" />
+        <Setter Property="LabelStyle" Value="{StaticResource ChatOutgoingLabelStyle}" />
+        <Setter Property="BorderStyle">
+            <Style TargetType="telerik:RadBorder">
+                <Setter Property="CornerRadius" Value="8, 8, 0, 8" />
+                <Setter Property="BackgroundColor" Value="{StaticResource ChatBubbleBackgroundColor}" />
+            </Style>
+        </Setter>
+    </Style>
+
+    <Style TargetType="telerik:ChatOutgoingFirstTextMessageView">
+        <Setter Property="ControlTemplate" Value="{StaticResource ChatOutgoingFirstAndSingleTextMessageViewControlTemplate}" />
+        <Setter Property="LabelStyle" Value="{StaticResource ChatOutgoingLabelStyle}" />
+        <Setter Property="BorderStyle">
+            <Style TargetType="telerik:RadBorder">
+                <Setter Property="CornerRadius" Value="8, 8, 0, 8" />
+                <Setter Property="BackgroundColor" Value="{StaticResource ChatBubbleBackgroundColor}" />
+            </Style>
+        </Setter>
+    </Style>
+
+    <Style TargetType="telerik:ChatOutgoingMiddleTextMessageView">
+        <Setter Property="ControlTemplate" Value="{StaticResource ChatOutgoingMiddleAndLastTextMessageViewControlTemplate}" />
+        <Setter Property="LabelStyle" Value="{StaticResource ChatOutgoingLabelStyle}" />
+        <Setter Property="BorderStyle">
+            <Style TargetType="telerik:RadBorder">
+                <Setter Property="CornerRadius" Value="8, 0, 0, 8" />
+                <Setter Property="BackgroundColor" Value="{StaticResource ChatBubbleBackgroundColor}" />
+            </Style>
+        </Setter>
+    </Style>
+
+    <Style TargetType="telerik:ChatOutgoingLastTextMessageView">
+        <Setter Property="ControlTemplate" Value="{StaticResource ChatOutgoingMiddleAndLastTextMessageViewControlTemplate}" />
+        <Setter Property="LabelStyle" Value="{StaticResource ChatOutgoingLabelStyle}" />
+        <Setter Property="BorderStyle">
+            <Style TargetType="telerik:RadBorder">
+                <Setter Property="CornerRadius" Value="8, 0, 8, 8" />
+                <Setter Property="BackgroundColor" Value="{StaticResource ChatBubbleBackgroundColor}" />
+            </Style>
+        </Setter>
+    </Style>
+
+    <telerik:StringToBoolConverter x:Key="ChatPickerStringToBoolConverter" />
+
+    <DataTemplate x:Key="ChatCardActionTemplate">
+        <telerik:CardActionView x:Name="view"
+                                helpers:DesktopUtils.MouseOverCursorType="Hand"
+                                telerik:StyleHelper.InheritedStyleClass="{Binding Source={x:Reference view}, Path=Parent.ActualStyleClass}"
+                                Text="{Binding Text}" VerticalOptions="Start"
+                                Command="{Binding Command}"
+                                TextColor="{StaticResource ActionTextColor}" />
+    </DataTemplate>
+
+    <ControlTemplate x:Key="ChatImageCardViewControlTemplate">
+        <telerik:RadBorder x:Name="PART_MainContainer"
+                           BorderBrush="#EBECEF"
+                           BorderThickness="1"
+                           CornerRadius="8"
+                           Padding="35, 16"
+                           AutomationId="RadChatImageCard">
+            <telerik:RadBorder.Shadow>
+                <Shadow Brush="#000000" Opacity="0.08" Offset="0,2" Radius="4" />
+            </telerik:RadBorder.Shadow>
+            <Grid RowDefinitions="Auto, *, Auto">
+                <Grid>
+                    <Image Source="{TemplateBinding Image}"
+                           VerticalOptions="FillAndExpand"
+                           Aspect="Center" />
+                </Grid>
+                <Grid Grid.Row="1"
+                      VerticalOptions="Start"
+                      RowDefinitions="Auto, *"
+                      RowSpacing="4" IsVisible="False">
+                    <VerticalStackLayout>
+                        <Label Text="{TemplateBinding Title}"
+                               Style="{TemplateBinding ActualTitleStyle}"
+                               IsVisible="{TemplateBinding Title, Converter={StaticResource ChatPickerStringToBoolConverter}}" />
+                        <Label Text="{TemplateBinding Subtitle}"
+                               Style="{TemplateBinding ActualSubtitleStyle}"
+                               IsVisible="{TemplateBinding Subtitle, Converter={StaticResource ChatPickerStringToBoolConverter}}" />
+                    </VerticalStackLayout>
+                    <Label Grid.Row="1"
+                           Text="{TemplateBinding Description}"
+                           LineBreakMode="WordWrap"
+                           MaxLines="4"
+                           Style="{TemplateBinding ActualDescriptionStyle}"
+                           IsVisible="{TemplateBinding Description, Converter={StaticResource ChatPickerStringToBoolConverter}}" />
+                </Grid>
+                <telerik:RadBorder Grid.Row="2"
+                                   BorderThickness="0">
+                    <telerik:CardActionsListView telerik:StyleHelper.InheritedStyleClass="{TemplateBinding ActualStyleClass}"
+                                                 ItemsSource="{TemplateBinding Actions}"
+                                                 ItemTemplate="{StaticResource ChatCardActionTemplate}" />
+                </telerik:RadBorder>
+            </Grid>
+        </telerik:RadBorder>
+    </ControlTemplate>
+
+
+
+
+    <Style TargetType="telerik:ImageCardView" ApplyToDerivedTypes="True">
+        <Setter Property="ControlTemplate" Value="{DynamicResource ChatImageCardViewControlTemplate}" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+    </Style>
+
+    <Style TargetType="telerik:RadChatPicker">
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="MinimumWidthRequest" Value="238" />
+        <Setter Property="MinimumHeightRequest" Value="200" />
+        <Setter Property="ControlTemplate">
+            <Setter.Value>
+                <ControlTemplate>
+                    <ContentPresenter HorizontalOptions="{TemplateBinding HorizontalOptions}"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="telerik:TypingIndicator">
+        <Setter Property="TextColor" Value="{StaticResource ChatTypeIndicatorColor}" />
+        <Setter Property="DotsColor" Value="{StaticResource ChatTypeIndicatorColor}" />
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="HorizontalOptions" Value="Start" />
+        <Setter Property="Margin" Value="{OnPlatform Default='0, 0, 0, -20', Android='0, 0, 0, -10', iOS='0, 0, 0, -10'}" />
+    </Style>
+
+    <Style x:Key="BottomSheetHandleDesktopStyle" TargetType="telerik:BottomSheetHandle">
+        <Setter Property="BackgroundColor" Value="Transparent" />
+        <Setter Property="Margin" Value="0" />
+    </Style>
+
+    <Style x:Key="DefaultBottomSheetIconStyle" TargetType="Label">
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontFamily" Value="TelerikFont" />
+    </Style>
+</ResourceDictionary>

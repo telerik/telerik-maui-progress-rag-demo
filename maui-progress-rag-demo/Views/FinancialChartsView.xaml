@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:behaviors="clr-namespace:MauiProgressRagDemo.Behaviors"
+             x:Class="MauiProgressRagDemo.Views.FinancialChartsView">
+    <ScrollView Padding="{OnIdiom Default='30, 0, 30, 20', Desktop='20, 0, 20, 20'}">
+        <VerticalStackLayout BindableLayout.ItemsSource="{Binding SelectedCharts}" HorizontalOptions="FillAndExpand">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <Grid RowDefinitions="{OnPlatform Default='Auto, *', Android='Auto, *, Auto', iOS='*, Auto, Auto'}"
+                          ColumnDefinitions="{OnPlatform MacCatalyst='800, Auto', WinUI ='500, Auto'}"
+                          RowSpacing="{OnIdiom Default=8, Desktop=4}"
+                          HeightRequest="{OnPlatform MacCatalyst=500, WinUI=500}"
+                          HorizontalOptions="{OnPlatform Default='FillAndExpand', MacCatalyst='Center', WinUI='Center'}">
+                        <Label Text="{Binding Title}"
+                               FontFamily="MetricMedium" 
+                               FontSize="{OnIdiom Default=20, Desktop=16}"
+                               HorizontalTextAlignment="Center"
+                               LineBreakMode="WordWrap"
+                               Margin="{OnPlatform Default='0, 12, 0, 0', MacCatalyst='0, 24, 0, 0', WinUI='0, 24, 0, 0'}" />
+                        <telerik:RadCartesianChart x:Name="chart"
+                                                   Grid.Column="0"
+                                                   Grid.Row="1"
+                                                   HorizontalOptions="FillAndExpand"
+                                                   HeightRequest="{OnPlatform Android=200}"
+                                                   AutomationId="chart">
+                            <telerik:RadCartesianChart.Behaviors>
+                                <behaviors:DynamicChartSeriesBehavior />
+                            </telerik:RadCartesianChart.Behaviors>
+                            <telerik:RadCartesianChart.ChartBehaviors>
+                                <telerik:ChartSelectionBehavior DataPointSelectionMode="Single"
+                                                                SeriesSelectionMode="Single" />
+                            </telerik:RadCartesianChart.ChartBehaviors>
+                            <telerik:RadCartesianChart.HorizontalAxis>
+                                <telerik:CategoricalAxis LabelFitMode="MultiLine" />
+                            </telerik:RadCartesianChart.HorizontalAxis>
+                            <telerik:RadCartesianChart.VerticalAxis>
+                                <telerik:NumericalAxis MajorStep="{OnPlatform Android=30000}" />
+                            </telerik:RadCartesianChart.VerticalAxis>
+                            <telerik:RadCartesianChart.Grid>
+                                <telerik:CartesianChartGrid MajorLinesVisibility="XY"
+                                                            MajorLineThickness="0.5"
+                                                            MajorLineColor="LightGray" />
+                            </telerik:RadCartesianChart.Grid>
+                        </telerik:RadCartesianChart>
+                        <telerik:RadLegend Grid.Column="{OnPlatform Default=1, Android=0, iOS=0}"
+                                           Grid.Row="{OnPlatform Android=2, iOS=2}"
+                                           Grid.RowSpan="{OnPlatform Default=2, Android=0, iOS=0}"
+                                           LegendProvider="{x:Reference Name=chart}"
+                                           Orientation="{OnIdiom Default=Horizontal, Desktop=Vertical}"
+                                           Margin="{OnPlatform Android='0, 0, 0, 16', iOS='0, 0, 0, 16'}"
+                                           VerticalOptions="Center"
+                                           HorizontalOptions="Center" />
+                    </Grid>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentView>

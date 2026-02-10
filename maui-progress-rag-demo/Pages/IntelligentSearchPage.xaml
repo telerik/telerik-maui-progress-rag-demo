@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:PageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:MauiProgressRagDemo.Controls"
+             xmlns:views="clr-namespace:MauiProgressRagDemo.Views"
+             xmlns:helpers="clr-namespace:MauiProgressRagDemo.Helpers"
+             xmlns:viewModels="clr-namespace:MauiProgressRagDemo.ViewModels"
+             xmlns:behaviors="clr-namespace:MauiProgressRagDemo.Behaviors"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:pages="clr-namespace:MauiProgressRagDemo.Pages"
+             x:Class="MauiProgressRagDemo.Pages.IntelligentSearchPage"
+             Title="AI Search">
+    <Grid RowDefinitions="Auto, *"
+          Background="{StaticResource DefaultBackground}"
+          Margin="{StaticResource PageTopOverlapMargin}">
+        <Grid Style="{StaticResource ShadowGridStyle}" />
+        <ScrollView Grid.RowSpan="2">
+            <Grid MinimumWidthRequest="{OnIdiom Default=0, Desktop=450}" 
+                  Background="{StaticResource PageGradientBackground}"
+                  RowDefinitions="Auto, *" >
+                <Grid.Triggers>
+                    <DataTrigger TargetType="Grid"
+                                 Binding="{Binding HasResults}"
+                                 Value="True">
+                        <Setter Property="Background" Value="{StaticResource IntelligentSearchBackgroundBrush}" />
+                    </DataTrigger>
+                </Grid.Triggers>
+                <!--bottom shadow-->
+                <Rectangle Style="{StaticResource RagValueResultsBottomShadowBoxStyle}" IsVisible="{Binding HasResults}" />
+                <!--bottom border-->
+                <Rectangle Style="{StaticResource RagValueResultsBottomDividerStyle}" IsVisible="{Binding HasResults}" />
+                
+                <!-- Aspect="AspectFit" WidthRequest="250" -->
+                <Image Source="vectors.png"
+                       VerticalOptions="Start"
+                       HorizontalOptions="End"
+                       Opacity="{OnPlatform Default=0, MacCatalyst=1, WinUI=1}"
+                       Aspect="Center"
+                       InputTransparent="True"
+                       IsVisible="{Binding HasResults, Converter={StaticResource InvertedBooleanConverter}}" />
+
+                <Grid x:Name="SearchGrid"
+                      RowDefinitions="Auto, Auto, *, Auto"
+                      RowSpacing="{OnPlatform Default=16, MacCatalyst=36, WinUI=36}"
+                      Padding="{OnPlatform Default='32, 24, 32, 0', MacCatalyst='64, 64, 48, 48', WinUI='48, 64, 48, 48'}">
+                    <Grid.Triggers>
+                        <DataTrigger TargetType="Grid"
+                                     Binding="{Binding HasResults}"
+                                     Value="True">
+                            <Setter Property="RowSpacing" Value="{OnPlatform Default=16, MacCatalyst=16, WinUI=24}" />
+                            <Setter Property="Padding" Value="{OnPlatform Default='32, 32, 32, 0', MacCatalyst='48, 64, 48, 48', WinUI='48, 64, 48, 48'}" />
+                        </DataTrigger>
+                    </Grid.Triggers>
+                    
+                    <OnPlatform x:TypeArguments="View">
+                        <On Platform="iOS, Android">
+                            <Grid>
+                                <controls:GradientTextView x:Name="GradientTextViewMobile"
+                                                           HorizontalTextAlignment="Center"
+                                                           IsVisible="{Binding HasResults, Converter={StaticResource InvertedBooleanConverter}}"
+                                                           Style="{StaticResource DefaultGradientTextViewStyle}">
+                                <controls:GradientTextView.Lines>
+                                        <x:String>Discover Progress Agentic RAG Knowledge</x:String>
+                                    </controls:GradientTextView.Lines>
+                                </controls:GradientTextView>
+
+                                <controls:GradientTextView FontSize="{OnPlatform Android=26, iOS=24}"
+                                                            HorizontalTextAlignment="Center"
+                                                            Style="{StaticResource DefaultGradientTextViewStyle}"
+                                                            IsVisible="{Binding HasResults}">
+                                    <controls:GradientTextView.Lines>
+                                        <x:String>Discover Progress Agentic</x:String>
+                                        <x:String>RAG Knowledge</x:String>
+                                    </controls:GradientTextView.Lines>
+                                </controls:GradientTextView>
+                            </Grid>
+                        </On>
+                        <On Platform="WinUI, MacCatalyst">
+                            <Grid>
+                                <controls:GradientTextView Style="{StaticResource DefaultGradientTextViewStyle}"
+                                                            IsVisible="{Binding HasResults, Converter={StaticResource InvertedBooleanConverter}}">
+                                    <controls:GradientTextView.Lines>
+                                        <x:String>Discover</x:String>
+                                        <x:String>Progress Agentic RAG Knowledge</x:String>
+                                    </controls:GradientTextView.Lines>
+                                </controls:GradientTextView>
+
+                                <controls:GradientTextView FontSize="36"
+                                                            HorizontalTextAlignment="Center"
+                                                            Style="{StaticResource DefaultGradientTextViewStyle}"
+                                                            IsVisible="{Binding HasResults}">
+                                    <controls:GradientTextView.Lines>
+                                        <x:String>Discover Progress Agentic RAG Knowledge</x:String>
+                                    </controls:GradientTextView.Lines>
+                                </controls:GradientTextView>
+                            </Grid>
+                        </On>
+                    </OnPlatform>
+
+                    <Label Grid.Row="1"
+                           HorizontalOptions="Start"
+                           MaximumWidthRequest="800"
+                           Margin="{OnPlatform Android='0 ,0, 0, 8', MacCatalyst='0, 0, 0, 32'}"
+                           Text="Search our comprehensive Progress Agentic RAG knowledge base with AI-powered intelligent search for precise, contextual results about Progress Agentic RAG features, capabilities, and best practices"
+                           Style="{StaticResource SubHeaderLabelStyle}"
+                           IsVisible="{Binding HasResults, Converter={StaticResource InvertedBooleanConverter}}" />
+
+                    <Grid Grid.Row="2"
+                          MaximumWidthRequest="{StaticResource MaximumContentWidth}"
+                          VerticalOptions="Fill">
+
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto"
+                              RowSpacing="{OnIdiom Default=16, Desktop=14}">
+                            <Grid.Triggers>
+                                <DataTrigger TargetType="Grid"
+                                     Binding="{Binding HasResults}"
+                                     Value="True">
+                                    <Setter Property="RowSpacing" Value="0" />
+                                </DataTrigger>
+                            </Grid.Triggers>
+                            <telerik:RadPromptInput x:Name="SearchPromptInput"
+                                                    DisplayMode="Compact"
+                                                    Margin="{OnPlatform Android='0, 8, 0, 24', iOS='0, 0, 0, 24', MacCatalyst='0', WinUI='0'}"
+                                                    CornerRadius="26"
+                                                    SendMessageCommand="{Binding SearchCommand}"
+                                                    Message="{Binding Query}"
+                                                    Placeholder="Ask about PARAG features, deployment, security, integrations..."/>
+
+                            <Label Grid.Row="1"
+                                   Text="Popular searches:"
+                                   FontSize="{OnPlatform Default=16, WinUI=14}"
+                                   Margin="{OnPlatform MacCatalyst='0, 24, 0, 0'}"
+                                   IsVisible="{Binding HasResults, Converter={StaticResource InvertedBooleanConverter}}" />
+
+                            <views:PopularSearchesView Grid.Row="2"
+                                                       IsVisible="{Binding HasResults, Converter={StaticResource InvertedBooleanConverter}}"
+                                                       ItemsSource="{Binding PredefinedSearches}"
+                                                       Command="{Binding SendMessageCommand, Source={x:Reference SearchPromptInput}}"
+                                                       ButtonStyle="{StaticResource SuggestionsButtonStyle}"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Orientation="Horizontal"
+                                                       Padding="{OnIdiom Default='0', Desktop='10, 0'}" />
+
+                            <telerik:RadWrapLayout Grid.Row="2"
+                                                   IsVisible="{Binding HasResults, Converter={StaticResource InvertedBooleanConverter}}"
+                                                   HorizontalOptions="Start" 
+                                                   VerticalOptions="Center"
+                                                   Orientation="Horizontal"
+                                                   Margin="{OnIdiom Default='0', Desktop='10, 0'}"
+                                                   BindableLayout.ItemsSource="{Binding PredefinedSearches}">
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <telerik:RadTemplatedButton Content="{Binding .}"
+                                                                    helpers:DesktopUtils.MouseOverCursorType="Hand"
+                                                                    Style="{StaticResource SuggestionsButtonStyle}"
+                                                                    Command="{Binding SendMessageCommand, Source={x:Reference SearchPromptInput}}"
+                                                                    CommandParameter="{Binding .}">
+                                            <telerik:RadTemplatedButton.Behaviors>
+                                                <behaviors:SimultaneousTouchBehavior />
+                                            </telerik:RadTemplatedButton.Behaviors>
+                                        </telerik:RadTemplatedButton>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </telerik:RadWrapLayout>
+                        </Grid>
+                    </Grid>
+                </Grid>
+                <Grid Grid.Row="1"
+                      Background="{StaticResource DefaultBackground}" 
+                      IsVisible="{Binding HasResults}"
+                      Padding="{OnPlatform MacCatalyst='0, 40', WinUI='0, 40'}">
+                    <Grid MaximumWidthRequest="{StaticResource MaximumContentWidth}"
+                          RowSpacing="{OnIdiom Default=32, Desktop=64}"
+                          RowDefinitions="Auto, *"
+                          Padding="{OnPlatform Default='32, 24', MacCatalyst=24, WinUI=24}">
+                        <Grid RowDefinitions="Auto, Auto, Auto"
+                              RowSpacing="24"
+                              HorizontalOptions="Center"
+                              VerticalOptions="Center"
+                              IsVisible="{Binding IsLoading}">
+
+                            <controls:GradientTextView FontSize="{OnPlatform Default=36, Android=26, iOS=24}"
+                                                        HorizontalTextAlignment="Center"
+                                                        Style="{StaticResource DefaultGradientTextViewStyle}">
+                                <controls:GradientTextView.Lines>
+                                    <x:String>Searching</x:String>
+                                    <x:String>Knowledge Base</x:String>
+                                </controls:GradientTextView.Lines>
+                            </controls:GradientTextView>
+                            
+                            <telerik:RadBusyIndicator Grid.Row="1" IsBusy="{Binding IsLoading}">
+                                <telerik:RadBusyIndicator.Behaviors>
+                                    <behaviors:BusyIndicatorAnimationBehavior />
+                                </telerik:RadBusyIndicator.Behaviors>
+                            </telerik:RadBusyIndicator>
+
+                            <Label Grid.Row="2"
+                                   Text="Analyzing your query..."
+                                   HorizontalTextAlignment="Center"
+                                   FontSize="16" />
+                        </Grid>
+
+                        <controls:MarkdownView Text="{Binding Answer}"
+                                               IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBooleanConverter}}" />
+
+                        <Grid Grid.Row="1"
+                              RowDefinitions="Auto, Auto"
+                              RowSpacing="16"
+                              IsVisible="{Binding IsLoading, Converter={StaticResource InvertedBooleanConverter}}"
+                              MaximumWidthRequest="{StaticResource MaximumContentWidth}">
+                            <Label FontSize="{OnPlatform Default=16, WinUI=14}"
+                                   Text="Related searches:" />
+                            <views:PopularSearchesView Grid.Row="1"
+                                                       ItemsSource="{Binding PredefinedSearches}"
+                                                       Command="{Binding SendMessageCommand, Source={x:Reference SearchPromptInput}}"
+                                                       ButtonStyle="{StaticResource SuggestionsButtonStyle}"
+                                                       HorizontalOptions="Start"
+                                                       VerticalOptions="Center"
+                                                       Orientation="Horizontal"
+                                                       Padding="{OnIdiom Default='0', Desktop='10, 0'}" />
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</pages:PageBase>

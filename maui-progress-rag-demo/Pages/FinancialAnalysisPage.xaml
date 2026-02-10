@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:PageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiProgressRagDemo.Pages.FinancialAnalysisPage"
+             xmlns:controls="clr-namespace:MauiProgressRagDemo.Controls"
+             xmlns:telerikMaui="clr-namespace:Telerik.Maui;assembly=Telerik.Maui.Core"
+             xmlns:views="clr-namespace:MauiProgressRagDemo.Views"
+             xmlns:viewmodels="clr-namespace:MauiProgressRagDemo.ViewModels"
+             xmlns:helpers="clr-namespace:MauiProgressRagDemo.Helpers"
+             xmlns:behaviors="clr-namespace:MauiProgressRagDemo.Behaviors"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:pages="clr-namespace:MauiProgressRagDemo.Pages"
+             Title="Finance Analysis">
+    <pages:PageBase.Resources>
+        <telerik:BoolToValueConverter x:Key="BoolToStringConverter"
+                                      TrueValue="Open"
+                                      FalseValue="Closed" />
+    </pages:PageBase.Resources>
+
+    <Grid Background="{StaticResource DefaultBackground}" 
+          Margin="{StaticResource PageTopOverlapMargin}"
+          Grid.RowDefinitions="Auto, *">
+        <Grid Style="{StaticResource ShadowGridStyle}" />
+        <Grid Grid.RowSpan="2">
+            <telerik:RadNavigationView ExpandedPaneWidth="{OnIdiom Phone=0, Default=245}"
+                                       ExpandedModeThresholdWidth="0"
+                                       HeaderStyle="{StaticResource NavigationHeaderStyle}"
+                                       PaneStyle="{StaticResource NavigationPaneStyle}"
+                                       ControlTemplate="{StaticResource NavigationControlTemplate}"
+                                       CompactModeThresholdWidth="800"
+                                       DisplayMode="{OnIdiom Phone=Minimal, Default=Expanded}">
+                <telerik:RadNavigationView.Behaviors>
+                    <behaviors:ToastMessageOnClickBehavior />
+                </telerik:RadNavigationView.Behaviors>
+                <telerik:RadNavigationView.Items>
+                    <telerik:NavigationViewItem Position="Header"
+                                                Text="New Chat"
+                                                ImageSource="newchat.png" />
+                    <telerik:NavigationViewItem Position="Header"
+                                                Text="Search Chats"
+                                                ImageSource="searchicon.png" />
+                    <telerik:NavigationViewItem Position="Header"
+                                                Text="Library"
+                                                ImageSource="bookopen.png" />
+                    <telerik:NavigationViewItem Position="Footer"
+                                                ImageSource="draweruser.png"
+                                                Style="{StaticResource MenuNavigationFooterItemStyle}" />
+                    <telerik:NavigationViewItem ControlTemplate="{StaticResource MenuNavigationItemNoImageTemplate}" IsEnabled="False">
+                        <telerik:NavigationViewItem.ContentTemplate>
+                            <DataTemplate>
+                                <Label Text="Chats"
+                                       Padding="0, 24, 0, 0"
+                                       TextColor="#A1B0C7"
+                                       VerticalOptions="Fill"
+                                       VerticalTextAlignment="Center"
+                                       LineBreakMode="TailTruncation" />
+                            </DataTemplate>
+                        </telerik:NavigationViewItem.ContentTemplate>
+                    </telerik:NavigationViewItem>
+                    <telerik:NavigationViewItem ControlTemplate="{StaticResource MenuNavigationItemNoImageTemplate}">
+                        <telerik:NavigationViewItem.ContentTemplate>
+                            <DataTemplate>
+                                <Label Text="How do I get started with KendoReact components?"
+                                       VerticalOptions="Fill"
+                                       VerticalTextAlignment="Center"
+                                       LineBreakMode="TailTruncation" />
+                            </DataTemplate>
+                        </telerik:NavigationViewItem.ContentTemplate>
+                    </telerik:NavigationViewItem>
+                    <telerik:NavigationViewItem ControlTemplate="{StaticResource MenuNavigationItemNoImageTemplate}">
+                        <telerik:NavigationViewItem.ContentTemplate>
+                            <DataTemplate>
+                                <Label Text="What are the best KendoReact components for data visualization?"
+                                       VerticalOptions="Fill"
+                                       VerticalTextAlignment="Center"
+                                       LineBreakMode="TailTruncation" />
+                            </DataTemplate>
+                        </telerik:NavigationViewItem.ContentTemplate>
+                    </telerik:NavigationViewItem>
+                    <telerik:NavigationViewItem ControlTemplate="{StaticResource MenuNavigationItemNoImageTemplate}">
+                        <telerik:NavigationViewItem.ContentTemplate>
+                            <DataTemplate>
+                                <Label Text="How to implement theming and styling in KendoReact?"
+                                       Margin="0, 0, 12, 0"
+                                       VerticalOptions="Fill"
+                                       VerticalTextAlignment="Center"
+                                       LineBreakMode="TailTruncation" />
+                            </DataTemplate>
+                        </telerik:NavigationViewItem.ContentTemplate>
+                    </telerik:NavigationViewItem>
+                </telerik:RadNavigationView.Items>
+
+                <Grid>
+                    <ScrollView>
+                        <Grid MinimumWidthRequest="{OnIdiom Default=0, Desktop=450}" 
+                              VerticalOptions="{OnPlatform iOS=Start, Android=Start}"
+                              Background="{StaticResource PageBottomGradientBackground}"
+                              HorizontalOptions="Center">
+                            <Image Source="vectors.png"
+                                   InputTransparent="True"
+                                   Opacity="{OnPlatform Default=0, MacCatalyst=1, WinUI=1}"
+                                   VerticalOptions="Start"
+                                   HorizontalOptions="End"
+                                   IsVisible="{OnPlatform Default=False, MacCatalyst=True, WinUI=True}"
+                                   Aspect="Center"
+                                   ZIndex="1" />
+                            <Grid RowDefinitions="Auto, Auto, *"
+                                  RowSpacing="{OnIdiom Default=16, Desktop=16}"
+                                  Padding="{OnIdiom Default='32, 24', Desktop='64, 64, 16, 40'}">
+
+                                <OnPlatform x:TypeArguments="View">
+                                    <On Platform="iOS, Android">
+                                        <controls:GradientTextView Style="{StaticResource DefaultGradientTextViewStyle}"
+                                                                    HorizontalTextAlignment="Center">
+                                            <controls:GradientTextView.Lines>
+                                                <x:String>Progress Agentic RAG Financial Charts Analysis</x:String>
+                                            </controls:GradientTextView.Lines>
+                                        </controls:GradientTextView>
+                                    </On>
+                                    <On Platform="WinUI, MacCatalyst">
+                                        <controls:GradientTextView Style="{StaticResource DefaultGradientTextViewStyle}">
+                                            <controls:GradientTextView.Lines>
+                                                <x:String>Progress Agentic RAG</x:String>
+                                                <x:String>Financial Charts</x:String>
+                                                <x:String>Analysis</x:String>
+                                            </controls:GradientTextView.Lines>
+                                        </controls:GradientTextView>
+                                    </On>
+                                </OnPlatform>
+
+                                <Label Grid.Row="1"
+                                       HorizontalOptions="Start"
+                                       Text="Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices."
+                                       Style="{StaticResource SubHeaderLabelStyle}"
+                                       Margin="{OnPlatform Android='0, 0, 0, 8', iOS='0, 0, 0, 12'}"
+                                       MaximumWidthRequest="470" />
+
+                                <Grid Grid.Row="2"
+                                      VerticalOptions="End"
+                                      Margin="{OnPlatform MacCatalyst='0, 25, 0, 0', WinUI='0, 25, 0, 0'}">
+                                    <Grid MaximumWidthRequest="736"
+                                          RowDefinitions="Auto, Auto, Auto"
+                                          RowSpacing="{OnIdiom Default=16, Desktop=16}">
+                                        <Label Text="👋 Hello! I'm your Progress Agentic RAG Financial assistant. I can help you by summarizing financial data and answering questions about companies. Try one of the suggestions below, or ask me anything about financial results of Apple, Amazon, Resolute, Exxon Mobil, Johnson &amp; Jonson, Google, NVIDIA or Berkshire Hathaway!"
+                                            Style="{StaticResource BaseLabelStyle}"
+                                            Margin="0, 0, 0, 16" />
+                                        <telerik:RadPromptInput x:Name="SearchPromptInput"
+                                                                DisplayMode="Compact"
+                                                                Grid.Row="1"
+                                                                HeightRequest="52"
+                                                                CornerRadius="26"
+                                                                Margin="{OnIdiom Phone='0', Desktop='10, 0'}"
+                                                                SendMessageCommand="{Binding SendChatMessageCommand}"
+                                                                Message="{Binding CurrentMessage}"
+                                                                Placeholder="Try a suggestion or ask about a company..." />
+                                        <telerik:RadWrapLayout Grid.Row="2"
+                                                            HorizontalOptions="Start" 
+                                                            VerticalOptions="Center"
+                                                            Orientation="Horizontal"
+                                                            Margin="{OnIdiom Phone='0', Desktop='10, 0'}"
+                                                            BindableLayout.ItemsSource="{Binding SuggestedChatMessages}">
+                                                <BindableLayout.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <telerik:RadTemplatedButton Content="{Binding .}"
+                                                                                    Style="{StaticResource SuggestionsButtonStyle}"
+                                                                                    Command="{Binding SendMessageCommand, Source={Reference SearchPromptInput}}"
+                                                                                    CommandParameter="{Binding .}" 
+                                                                                    helpers:DesktopUtils.MouseOverCursorType="Hand">
+                                                            <telerik:RadTemplatedButton.Behaviors>
+                                                                <behaviors:SimultaneousTouchBehavior />
+                                                            </telerik:RadTemplatedButton.Behaviors>
+                                                        </telerik:RadTemplatedButton>
+                                                    </DataTemplate>
+                                                </BindableLayout.ItemTemplate>
+                                        </telerik:RadWrapLayout>
+                                    </Grid>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </ScrollView>
+
+                    <Grid x:Name="ChatGrid"
+                           IsVisible="{Binding HasConversationStarted}">
+                        <OnPlatform x:TypeArguments="View">
+                            <On Platform="iOS, Android">
+                                <telerik:RadBottomSheet x:Name="BottomSheet" 
+                                                        AutoGenerateStates="False"
+                                                        State="{Binding ShouldShowCharts, Converter={StaticResource BoolToStringConverter}, Mode=TwoWay}">
+                                    <telerik:RadBottomSheet.States>
+                                        <telerik:BottomSheetState Name="Closed" Height="0%" />
+                                        <telerik:BottomSheetState Name="Open" Height="93%" />
+                                    </telerik:RadBottomSheet.States>
+
+                                    <views:ChatView />
+
+                                    <telerik:RadBottomSheet.BottomSheetContent>
+                                        <views:FinancialChartsView />
+                                    </telerik:RadBottomSheet.BottomSheetContent>
+                                </telerik:RadBottomSheet>
+                            </On>
+                            <On Platform="WinUI, MacCatalyst">
+                                <Grid>
+                                    <telerik:RadPopup.Popup>
+                                        <telerik:RadPopup Placement="Center"
+                                                          IsOpen="{Binding ShouldShowCharts}"
+                                                          OutsideBackgroundColor="#30000000"
+                                                          PropertyChanged="RadPopup_PropertyChanged">
+                                            <Grid WidthRequest="1000"
+                                                  MaximumHeightRequest="700"
+                                                  RowDefinitions="Auto,*"
+                                                  Background="{StaticResource DefaultBackground}">
+                                                <telerik:RadTemplatedButton Style="{StaticResource ClosePopUpButtonStyle}"
+                                                                            Command="{Binding ToggleShouldShowChartsCommand}" />
+                                                <views:FinancialChartsView Grid.Row="1" HorizontalOptions="Center" />
+                                            </Grid>
+                                        </telerik:RadPopup>
+                                    </telerik:RadPopup.Popup>
+
+                                    <views:ChatView />
+                                </Grid>
+                            </On>
+                        </OnPlatform>
+                    </Grid>
+                </Grid>
+            </telerik:RadNavigationView>
+        </Grid>
+    </Grid>
+</pages:PageBase>

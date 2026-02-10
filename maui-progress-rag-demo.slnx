@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="maui-progress-rag-demo/maui-progress-rag-demo.csproj">
+    <Deploy />
+  </Project>
+</Solution>

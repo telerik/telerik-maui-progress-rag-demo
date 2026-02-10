@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:PageBase x:Class="MauiProgressRagDemo.Pages.AgenticRagValuePage"
+             xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:behaviors="clr-namespace:MauiProgressRagDemo.Behaviors"
+             xmlns:controls="clr-namespace:MauiProgressRagDemo.Controls"
+             xmlns:layouts="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:telerikMaui="clr-namespace:Telerik.Maui;assembly=Telerik.Maui.Core"
+             xmlns:helpers="clr-namespace:MauiProgressRagDemo.Helpers"
+             xmlns:viewModels="clr-namespace:MauiProgressRagDemo.ViewModels"
+             xmlns:shapes="clr-namespace:Microsoft.Maui.Controls.Shapes;assembly=Microsoft.Maui.Controls"
+             xmlns:views="clr-namespace:MauiProgressRagDemo.Views"
+             xmlns:pages="clr-namespace:MauiProgressRagDemo.Pages"
+             Title="Value Proposition">
+    <pages:PageBase.Resources>
+
+        <telerik:NullOrEmptyToBoolConverter x:Key="NullOrEmptyToBoolConverter" />
+        <DataTemplate x:Key="RagValueCardItemTemplate">
+            <telerik:RadToggleButton x:Name="ToggleButton"
+                                     helpers:DesktopUtils.MouseOverCursorType="Hand"
+                                     VisualStateManager.VisualStateGroups="{StaticResource EmptyVisualStates}"
+                                     CornerRadius="24"
+                                     IsToggled="{OnPlatform Default={Binding Source={RelativeSource AncestorType={x:Type telerik:RadCollectionViewItemView}}, Path=IsSelected}, WinUI=False}"
+                                     InputTransparent="{OnPlatform iOS=True, Default=False}"
+                                     BorderThickness="0" BorderBrush="Transparent" Background="Transparent" Padding="0">
+                <telerik:RadToggleButton.Content>
+                    <Grid>
+                        <telerik:RadBorder x:Name="CardItemBorder" 
+                                           Background="Transparent"
+                                           Style="{StaticResource RagValueCardBorderStyle}">
+                            <telerik:RadBorder.Triggers>
+                                <DataTrigger TargetType="telerik:RadBorder"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadCollectionViewItemView}}, Path=IsSelected}"
+                                             Value="True">
+                                    <Setter Property="BorderBrush" Value="{StaticResource AccentBlueColor}" />
+                                    <Setter Property="Shadow">
+                                        <Setter.Value>
+                                            <Shadow Brush="#000000"
+                                                    Offset="0, 4"
+                                                    Opacity="0.10"
+                                                    Radius="6"/>
+                                        </Setter.Value>
+                                    </Setter>
+                                </DataTrigger>
+                            </telerik:RadBorder.Triggers>
+
+                            <Label x:Name="CardItemLabel"
+                                   Text="{Binding .}"
+                                   Style="{StaticResource RagValueCardLabelStyle}"
+                                   Background="Transparent">
+                                <Label.Triggers>
+                                    <DataTrigger TargetType="Label"
+                                                 Binding="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadCollectionViewItemView}}, Path=IsSelected}"
+                                                 Value="True">
+                                        <Setter Property="FontSize" Value="17" />
+                                        <Setter Property="TextColor" Value="{StaticResource AccentBlueColor}" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </telerik:RadBorder>
+
+                        <telerik:RadBorder x:Name="PressedOverlay" 
+                                           Background="Transparent" 
+                                           InputTransparent="True"
+                                           IsVisible="False"
+                                           Style="{StaticResource RagValueCardPressedBorderStyle}">
+                            <telerik:RadBorder.Triggers>
+                                <DataTrigger TargetType="telerik:RadBorder"
+                                             Binding="{Binding Source={x:Reference ToggleButton}, Path=IsPressed}"
+                                             Value="True">
+                                    <Setter Property="IsVisible" Value="True" />
+                                </DataTrigger>
+                                <DataTrigger TargetType="telerik:RadBorder"
+                                             Binding="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadCollectionViewItemView}}, Path=IsSelected}"
+                                             Value="True">
+                                    <Setter Property="IsVisible" Value="False" />
+                                </DataTrigger>
+                            </telerik:RadBorder.Triggers>
+                        </telerik:RadBorder>
+                    </Grid>
+                </telerik:RadToggleButton.Content>
+            </telerik:RadToggleButton>
+        </DataTemplate>
+    </pages:PageBase.Resources>
+    <Grid Background="{StaticResource DefaultBackgroundColor}"
+          RowDefinitions="Auto, *"
+          Margin="{StaticResource PageTopOverlapMargin}">
+        <Grid Style="{StaticResource ShadowGridStyle}" />
+        <!--Cards form-->
+        <ScrollView Grid.RowSpan="2" 
+                    IsVisible="{Binding HasResults, Converter={StaticResource InvertedBooleanConverter}}"
+                    VerticalOptions="{OnPlatform Android=Start, iOS=Start}">
+            <Grid RowDefinitions="Auto, *">
+                <Grid MinimumWidthRequest="{OnIdiom Default=0, Desktop=450}"
+                      Grid.Row="1">
+                    <Image Aspect="Center"
+                           InputTransparent="True"
+                           HorizontalOptions="End"
+                           Opacity="{OnPlatform Default=0, MacCatalyst=1, WinUI=1}"
+                           Source="vectors.png"
+                           VerticalOptions="Start"
+                           ZIndex="1" />
+                    <Grid Padding="{OnPlatform Default='0, 24', MacCatalyst='64, 64, 64, 48', WinUI='48, 30, 48, 48'}"
+                          RowDefinitions="Auto, Auto, *" 
+                          VerticalOptions="{OnPlatform Android=Start, iOS=Start}"
+                          RowSpacing="16">
+
+                        <controls:GradientTextView Style="{StaticResource DefaultGradientTextViewStyle}"
+                                                    HorizontalTextAlignment="{OnIdiom Default=Center, Desktop=Start}"
+                                                    Margin="{OnPlatform Android='24, 0', iOS='24, 0'}">
+                            <controls:GradientTextView.Lines>
+                                <x:String>Progress Agentic RAG Value</x:String>
+                            </controls:GradientTextView.Lines>
+                        </controls:GradientTextView>
+
+                        <Label Grid.Row="1"
+                               HorizontalOptions="Start"
+                               Margin="{OnPlatform Android={StaticResource PageMarginLeftRight}, iOS={StaticResource PageMarginLeftRight}}"
+                               Style="{StaticResource SubHeaderLabelStyle}"
+                               MaximumWidthRequest="{StaticResource MaximumContentWidth}"
+                               Text="Generate a customized value proposition showing exactly how Progress Agentic RAG delivers ROI for your specific industry, company size, and use case." />
+
+                        <Grid Grid.Row="2"
+                              MaximumWidthRequest="{OnPlatform MacCatalyst=900, WinUI=900}"
+                              VerticalOptions="Start">
+                            <OnPlatform x:TypeArguments="View">
+                                <On Platform="Android, iOS">
+                                    <BoxView InputTransparent="True"
+                                             HeightRequest="200"
+                                             HorizontalOptions="Fill"
+                                             VerticalOptions="Start"
+                                             Background="{StaticResource AgenticRagValueBackgroundMobile}" />
+                                </On>
+                            </OnPlatform>
+                            <Grid RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto, Auto"
+                                  RowSpacing="16"
+                                  Margin="{OnPlatform Android={StaticResource PageMarginLeftRight}, iOS={StaticResource PageMarginLeftRight}}"
+                                  VerticalOptions="Start">
+                                <OnPlatform x:TypeArguments="View">
+                                    <On Platform="MacCatalyst, WinUI">
+                                        <Grid Grid.RowSpan="4"
+                                              Background="{DynamicResource PageGradientPinkBackground}" />
+                                    </On>
+                                </OnPlatform>
+                                <Label Margin="{OnPlatform Default='0', MacCatalyst='0, 64 ,0, 0', WinUI='0, 64 ,0, 0'}"
+                                       HorizontalOptions="Center"
+                                       FontSize="{OnPlatform Default=36, iOS=35}"
+                                       Style="{StaticResource Header36LabelStyle}"
+                                       Text="Configure Your Scenario" />
+
+                                <Label Grid.Row="1"
+                                       HorizontalOptions="Center"
+                                       Style="{StaticResource BaseLabelStyle}"
+                                       Text="Tell us about your organization and we'll create a tailored value proposition" />
+
+                                <telerik:RadBorder Grid.Row="3"
+                                                   Margin="{OnPlatform MacCatalyst='0, 40 ,0, 0', WinUI='0, 40 ,0, 0'}"
+                                                   HorizontalOptions="Fill"
+                                                   Style="{StaticResource ShadowBorderBoxStyle}">
+                                    <Grid RowDefinitions="Auto, *" RowSpacing="12">
+                                        <Label Style="{StaticResource RagValueHeaderLabelStyle}" Text="Industry *" />
+                                        <telerik:RadCollectionView Grid.Row="1"
+                                                                   ItemsSource="{Binding Industries}"
+                                                                   SelectedItem="{Binding SelectedIndustry}"
+                                                                   ItemTemplate="{StaticResource RagValueCardItemTemplate}"
+                                                                   ItemViewStyle="{StaticResource RagValueCardItemStyle}"
+                                                                   SelectionMode="Single">
+                                            <telerik:RadCollectionView.Behaviors>
+                                                <behaviors:CollectionViewResponsiveLayoutBehavior />
+                                            </telerik:RadCollectionView.Behaviors>
+                                            <telerik:RadCollectionView.ItemsLayout>
+                                                <telerik:CollectionViewGridLayout Orientation="Vertical"
+                                                                                  SpanCount="{OnIdiom Desktop=3, Default=1}" />
+                                            </telerik:RadCollectionView.ItemsLayout>
+                                        </telerik:RadCollectionView>
+                                    </Grid>
+                                </telerik:RadBorder>
+
+                                <telerik:RadBorder Grid.Row="4" Style="{StaticResource ShadowBorderBoxStyle}">
+                                    <Grid RowDefinitions="Auto, *" RowSpacing="12">
+                                        <Label Style="{StaticResource RagValueHeaderLabelStyle}" Text="Company Size *" />
+                                        <telerik:RadCollectionView Grid.Row="1"
+                                                                   ItemsSource="{Binding CompanySizes}"
+                                                                   SelectedItem="{Binding SelectedCompanySize}"
+                                                                   ItemTemplate="{StaticResource RagValueCardItemTemplate}"
+                                                                   ItemViewStyle="{StaticResource RagValueCardItemStyle}"
+                                                                   SelectionMode="Single">
+                                            <telerik:RadCollectionView.Behaviors>
+                                                <behaviors:CollectionViewResponsiveLayoutBehavior />
+                                            </telerik:RadCollectionView.Behaviors>
+                                            <telerik:RadCollectionView.ItemsLayout>
+                                                <telerik:CollectionViewGridLayout Orientation="Vertical"
+                                                                                  SpanCount="{OnIdiom Desktop=3, Default=1}" />
+                                            </telerik:RadCollectionView.ItemsLayout>
+                                        </telerik:RadCollectionView>
+                                    </Grid>
+                                </telerik:RadBorder>
+                                <telerik:RadBorder Grid.Row="5" Style="{StaticResource ShadowBorderBoxStyle}">
+                                    <Grid RowDefinitions="Auto, *" RowSpacing="12">
+                                        <Label Style="{StaticResource RagValueHeaderLabelStyle}" Text="Data Types * (Select all that apply)" />
+                                        <telerik:RadCollectionView Grid.Row="1"
+                                                                   x:Name="DataTypesCollectionView"
+                                                                   ItemsSource="{Binding DataTypes}"
+                                                                   SelectedItems="{Binding SelectedDataTypes}"
+                                                                   ItemTemplate="{StaticResource RagValueCardItemTemplate}"
+                                                                   ItemViewStyle="{StaticResource RagValueCardItemStyle}"
+                                                                   SelectionMode="Multiple">
+                                            <telerik:RadCollectionView.Behaviors>
+                                                <behaviors:CollectionViewResponsiveLayoutBehavior />
+                                            </telerik:RadCollectionView.Behaviors>
+                                            <telerik:RadCollectionView.ItemsLayout>
+                                                <telerik:CollectionViewGridLayout Orientation="Vertical"
+                                                                                  SpanCount="{OnIdiom Desktop=3, Default=1}" />
+                                            </telerik:RadCollectionView.ItemsLayout>
+                                        </telerik:RadCollectionView>
+                                    </Grid>
+                                </telerik:RadBorder>
+                                <telerik:RadBorder Grid.Row="6" Style="{StaticResource ShadowBorderBoxStyle}">
+                                    <Grid RowDefinitions="Auto, *" RowSpacing="12">
+                                        <Label Style="{StaticResource RagValueHeaderLabelStyle}" Text="Primary Use Case *" />
+                                        <telerik:RadCollectionView Grid.Row="1"
+                                                                   ItemsSource="{Binding UseCases}"
+                                                                   SelectedItem="{Binding SelectedUseCase}"
+                                                                   ItemTemplate="{StaticResource RagValueCardItemTemplate}"
+                                                                   ItemViewStyle="{StaticResource RagValueCardItemStyle}"
+                                                                   SelectionMode="Single">
+                                            <telerik:RadCollectionView.Behaviors>
+                                                <behaviors:CollectionViewResponsiveLayoutBehavior />
+                                            </telerik:RadCollectionView.Behaviors>
+                                            <telerik:RadCollectionView.ItemsLayout>
+                                                <telerik:CollectionViewGridLayout Orientation="Vertical"
+                                                                                  SpanCount="{OnIdiom Desktop=3, Default=1}" />
+                                            </telerik:RadCollectionView.ItemsLayout>
+                                        </telerik:RadCollectionView>
+                                    </Grid>
+                                </telerik:RadBorder>
+                                <telerik:RadBorder Grid.Row="7"
+                                                   HorizontalOptions="Fill"
+                                                   Style="{StaticResource ShadowBorderBoxStyle}">
+                                    <Grid RowDefinitions="Auto, *"
+                                          RowSpacing="20">
+                                        <Label Style="{StaticResource RagValueHeaderLabelStyle}" Text="Additional Details (Optional)" />
+                                        <telerik:RadEditor Grid.Row="1"
+                                                          Text="{Binding AdditionalDetails}"
+                                                          Placeholder="Provide any additional context about your organization, specific challenges, or requirements that would help create a more targeted value proposition..."
+                                                          ClearButtonVisibility="Never"
+                                                          Style="{StaticResource EditorStyle}" />
+                                    </Grid>
+                                </telerik:RadBorder>
+
+                                <telerik:RadTemplatedButton Grid.Row="8"
+                                                            Style="{StaticResource GradientPillButtonStyle}"
+                                                            helpers:DesktopUtils.MouseOverCursorType="Hand"
+                                                            Command="{Binding GenerateValuePropositionCommand}">
+                                    <Grid ColumnDefinitions="Auto, *"
+                                          ColumnSpacing="8"
+                                          VerticalOptions="Center">
+                                        <Label Margin="0, 4, 0, 0"
+                                               FontFamily="{x:Static telerikMaui:TelerikFont.Name}"
+                                               FontSize="16"
+                                               HorizontalTextAlignment="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}, Path=HorizontalTextAlignment, Mode=TwoWay}"
+                                               Text="{x:Static telerikMaui:TelerikFont.IconSparkle}"
+                                               TextColor="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}, Path=TextColor, Mode=TwoWay}"
+                                               VerticalTextAlignment="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}, Path=VerticalTextAlignment, Mode=TwoWay}" />
+                                        <Label Grid.Column="1"
+                                               FontAttributes="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}, Path=FontAttributes, Mode=TwoWay}"
+                                               FontFamily="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}, Path=FontFamily, Mode=TwoWay}"
+                                               FontSize="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}, Path=FontSize, Mode=TwoWay}"
+                                               HorizontalTextAlignment="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}, Path=HorizontalTextAlignment}"
+                                               Text="Generate Value Proposition"
+                                               TextColor="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}, Path=TextColor}"
+                                               VerticalTextAlignment="{Binding Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}, Path=VerticalTextAlignment}" />
+                                    </Grid>
+                                </telerik:RadTemplatedButton>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </ScrollView>
+
+        <!--Search page-->
+        <ScrollView Grid.RowSpan="2" 
+                    IsVisible="{Binding HasResults}"
+                    Padding="{OnPlatform Default='0, 24', MacCatalyst='0, 48', WinUI='0, 48'}"
+                    VerticalOptions="{OnPlatform Android=Start, iOS=Start}">
+            <Grid RowDefinitions="Auto, *"
+                  VerticalOptions="Start"
+                  RowSpacing="{x:OnPlatform Default=32, MacCatalyst=0}">
+                <OnPlatform x:TypeArguments="View">
+                    <On Platform="MacCatalyst, WinUI">
+                        <!--top header background-->
+                        <BoxView Style="{StaticResource RagValueResultsHeaderBackgroundBoxStyle}"/>
+                    </On>
+                </OnPlatform>
+                <!--bottom shadow-->
+                <Rectangle Style="{StaticResource RagValueResultsBottomShadowBoxStyle}" />
+                <!--bottom border-->
+                <Rectangle Style="{StaticResource RagValueResultsBottomDividerStyle}" ZIndex="1"/>
+                <Grid MinimumWidthRequest="{OnIdiom Default=0, Desktop=450}"
+                      MaximumWidthRequest="770"
+                      HorizontalOptions="Center"
+                      Margin="0, 0, 0, 1"
+                      RowDefinitions="{OnPlatform Default='*', MacCatalyst='*, *'}"
+                      Background="{OnPlatform iOS= {DynamicResource RagValueResultsHeaderBackgroundBrushMobile}, Android={DynamicResource RagValueResultsHeaderBackgroundBrushMobile}}">
+                    <OnPlatform x:TypeArguments="View">
+                        <On Platform="WinUI">
+                            <BoxView Style="{StaticResource RagValueResultsGradientBoxStyle}" />
+                        </On>
+                        <On Platform="MacCatalyst">
+                            <Grid Grid.Row="1"
+                                  Background="{StaticResource RagValueResultsLinearBackgroundBrush_MacCatalyst}"
+                                  IsVisible="{Binding IsLoading,Converter={StaticResource InvertedBooleanConverter}}" />
+                        </On>
+                    </OnPlatform>
+                    <VerticalStackLayout Grid.RowSpan="{OnPlatform Default=1, MacCatalyst=2}"
+                                         Spacing="{x:OnPlatform Default=16, MacCatalyst=8}"
+                                         VerticalOptions="Center">
+                        <VerticalStackLayout>
+                            <controls:GradientTextView IsVisible="{Binding IsLoading}"
+                                                       FontSize="36"
+                                                       HorizontalTextAlignment="Center"
+                                                       Style="{StaticResource DefaultGradientTextViewStyle}">
+                                <controls:GradientTextView.Lines>
+                                    <x:String>Generating</x:String>
+                                </controls:GradientTextView.Lines>
+                            </controls:GradientTextView>
+                            <controls:GradientTextView FontSize="36"
+                                                       HorizontalTextAlignment="Center"
+                                                       Style="{StaticResource DefaultGradientTextViewStyle}">
+                                <controls:GradientTextView.Lines>
+                                    <x:String>Custom Value Proposition</x:String>
+                                </controls:GradientTextView.Lines>
+                            </controls:GradientTextView>
+                        </VerticalStackLayout>
+                        <telerik:RadBusyIndicator IsBusy="{Binding IsLoading}"
+                                                  x:Name="BusyIndicator">
+                            <telerik:RadBusyIndicator.Behaviors>
+                                <behaviors:BusyIndicatorAnimationBehavior/>
+                            </telerik:RadBusyIndicator.Behaviors>
+                        </telerik:RadBusyIndicator>
+
+                        <Label Text="Analyzing industry requirements ..."
+                               HorizontalTextAlignment="Center"
+                               FontSize="16"
+                               IsVisible="{Binding IsLoading}" />
+
+                        <Grid VerticalOptions="Center">
+                            <telerik:RadBorder Style="{StaticResource RagValueResultsShadowBorderBoxStyle}"
+                                               MaximumWidthRequest="{OnPlatform MacCatalyst=770, WinUI=770}"
+                                               Margin="{OnPlatform Default='24, 4, 24 , 24', MacCatalyst='16, 30, 16, 30', WinUI='16, 20, 16, 60'}">
+                                <Grid RowDefinitions="{OnIdiom Phone='Auto, Auto, Auto, Auto', Desktop='Auto, Auto'}"
+                                      ColumnDefinitions="{OnIdiom Phone='*', Desktop='*, *'}"
+                                      RowSpacing="{x:OnPlatform Default=16, MacCatalyst=8}"
+                                      ColumnSpacing="{OnIdiom Phone=0, Desktop=24}"
+                                      MinimumHeightRequest="{OnPlatform MacCatalyst=100}" VerticalOptions="Start"
+                                      Padding="16, 8">
+                                    <Grid.Behaviors>
+                                        <behaviors:ResponsiveGridLayoutBehavior />
+                                    </Grid.Behaviors>
+                                    <VerticalStackLayout Style="{StaticResource RagValueResultCardContainerStyle}">
+                                        <Label Text="Industry &amp; Size:"
+                                               Style="{StaticResource RagValueResultLabelTitleStyle}"/>
+                                        <Label Text="{Binding SelectedIndustry}"
+                                               Style="{StaticResource RagValueResultLabelValueStyle}"
+                                               IsVisible="{Binding SelectedCompanySize, Converter={StaticResource NullOrEmptyToBoolConverter}}" />
+                                        <Label Text="{Binding SelectedCompanySize}"
+                                               Style="{StaticResource RagValueResultLabelValueStyle}"
+                                               IsVisible="{Binding SelectedCompanySize, Converter={StaticResource NullOrEmptyToBoolConverter}}" />
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Style="{StaticResource RagValueResultCardContainerStyle}"
+                                                         Grid.Row="{OnIdiom Phone=1, Desktop=0}"
+                                                         Grid.Column="{OnIdiom Phone=0, Desktop=1}">
+                                        <Label Text="Primary Use Case:"
+                                               Style="{StaticResource RagValueResultLabelTitleStyle}"/>
+                                        <Label Text="{Binding SelectedUseCase}"
+                                               Style="{StaticResource RagValueResultLabelValueStyle}"/>
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Style="{StaticResource RagValueResultCardContainerStyle}"
+                                                         Grid.Row="{OnIdiom Phone=2, Desktop=1}"
+                                                         Grid.Column="0">
+                                        <Label Text="Data Types:"
+                                               Style="{StaticResource RagValueResultLabelTitleStyle}"/>
+                                        <Label Text="{Binding SelectedDataTypesString}"
+                                               Style="{StaticResource RagValueResultLabelValueStyle}"/>
+                                    </VerticalStackLayout>
+
+                                    <VerticalStackLayout Style="{StaticResource RagValueResultCardContainerStyle}"
+                                                         Grid.Row="{OnIdiom Phone=3, Desktop=1}"
+                                                         Grid.Column="{OnIdiom Phone=0, Desktop=1}"
+                                                         IsVisible="{Binding AdditionalDetails, Converter={StaticResource NullOrEmptyToBoolConverter}}">
+                                        <Label Text="Additional Details:"
+                                               Style="{StaticResource RagValueResultLabelTitleStyle}" />
+                                        <Label Text="{Binding AdditionalDetails}"
+                                               Style="{StaticResource RagValueResultLabelValueStyle}" />
+                                    </VerticalStackLayout>
+                                </Grid>
+                            </telerik:RadBorder>
+                        </Grid>
+                    </VerticalStackLayout>
+                </Grid>
+                <Grid Grid.Row="1"
+                      VerticalOptions="Start"
+                      MinimumWidthRequest="{OnIdiom Desktop=450, Default=0}"
+                      MaximumWidthRequest="{OnPlatform MacCatalyst=770, WinUI=770}"
+                      Padding="{OnPlatform Default='32, 0', MacCatalyst='32, 32, 32, 0'}">
+                    <controls:MarkdownView Text="{Binding ValueProposition}" />
+                </Grid>
+            </Grid>
+        </ScrollView>
+    </Grid>
+</pages:PageBase>

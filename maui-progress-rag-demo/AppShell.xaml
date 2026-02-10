@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="MauiProgressRagDemo.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:MauiProgressRagDemo.Pages"
+    xmlns:views="clr-namespace:MauiProgressRagDemo.Views;assembly=maui-progress-rag-demo"
+    Shell.NavBarIsVisible="True"
+    FlyoutBehavior="{OnIdiom Desktop=Flyout, Phone=Disabled}"
+    FlyoutWidth="300"
+    Title="{OnPlatform Default='Telerik UI for .Net Maui + Progress Agentic RAG', WinUI=''}">
+
+    <Shell.TitleView>
+        <OnPlatform x:TypeArguments="View">
+            <On Platform="Android,iOS">
+                <views:ShellTitleView />
+            </On>
+            <On Platform="WinUI, MacCatalyst">
+                <ContentView />
+            </On>
+        </OnPlatform>
+    </Shell.TitleView>
+
+    <!-- Tabs on Android/iOS -->
+    <TabBar IsVisible="{OnIdiom Phone=True, Desktop=False}">
+        <Tab Title="Home" Route="Home" Icon="home16x16.png">
+            <ShellContent
+                Title="Home"
+                ContentTemplate="{DataTemplate pages:HomePage}"/>
+        </Tab>
+
+        <Tab Title="Search" Route="IntelligentSearch" Icon="scansearch16x16.png">
+            <ShellContent
+                Title="Intelligent Search"
+                ContentTemplate="{DataTemplate pages:IntelligentSearchPage}"/>
+        </Tab>
+
+        <Tab Title="Analyze" Route="FinancialAnalysis" Icon="chartarea16x16.png">
+            <ShellContent
+                Title="Financial Analysis"
+                ContentTemplate="{DataTemplate pages:FinancialAnalysisPage}"/>
+        </Tab>
+
+        <Tab Title="Assistant" Route="KnowledgeAssistant" Icon="bot16x16.png">
+            <ShellContent
+                Title="Knowledge Assistant"
+                ContentTemplate="{DataTemplate pages:KnowledgeAssistantPage}"/>
+        </Tab>
+
+        <Tab Title="A-RAG Value" Route="AgenticRagValue" Icon="sparkles16x16.png">
+            <ShellContent
+                Title="Agentic RAG Value"
+                ContentTemplate="{DataTemplate pages:AgenticRagValuePage}"/>
+        </Tab>
+    </TabBar>
+
+    <!-- Flyout on Desktop (MacCatalyst/Windows) -->
+    <FlyoutItem Title="Home" Route="Home" Icon="home16x16.png" IsVisible="{OnIdiom Desktop=True, Phone=False}">
+        <ShellContent Title="Home" ContentTemplate="{DataTemplate pages:HomePage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Intelligent Search" Route="IntelligentSearch" Icon="scansearch16x16.png" IsVisible="{OnIdiom Desktop=True, Phone=False}">
+        <ShellContent Title="Intelligent Search" ContentTemplate="{DataTemplate pages:IntelligentSearchPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Financial Analysis" Route="FinancialAnalysis" Icon="chartarea16x16.png" IsVisible="{OnIdiom Desktop=True, Phone=False}">
+        <ShellContent Title="Financial Analysis" ContentTemplate="{DataTemplate pages:FinancialAnalysisPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Knowledge Assistant" Route="KnowledgeAssistant" Icon="bot16x16.png" IsVisible="{OnIdiom Desktop=True, Phone=False}">
+        <ShellContent Title="Knowledge Assistant" ContentTemplate="{DataTemplate pages:KnowledgeAssistantPage}" />
+    </FlyoutItem>
+
+    <FlyoutItem Title="Agentic RAG Value" Route="AgenticRagValue" Icon="sparkles16x16.png" IsVisible="{OnIdiom Desktop=True, Phone=False}">
+        <ShellContent Title="Agentic RAG Value" ContentTemplate="{DataTemplate pages:AgenticRagValuePage}" />
+    </FlyoutItem>
+
+</Shell>

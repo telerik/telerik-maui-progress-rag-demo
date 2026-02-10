@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:PageBase
+    x:Class="MauiProgressRagDemo.Pages.HomePage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:behaviors="clr-namespace:MauiProgressRagDemo.Behaviors"
+    xmlns:controls="clr-namespace:MauiProgressRagDemo.Controls"
+    xmlns:helpers="clr-namespace:MauiProgressRagDemo.Helpers"
+    xmlns:layouts="clr-namespace:Microsoft.Maui.Controls;assembly=Microsoft.Maui.Controls"
+    xmlns:local="clr-namespace:MauiProgressRagDemo"
+    xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+    xmlns:viewModels="clr-namespace:MauiProgressRagDemo.ViewModels"
+    xmlns:views="clr-namespace:MauiProgressRagDemo.Views"
+    xmlns:pages="clr-namespace:MauiProgressRagDemo.Pages"
+    x:Name="HomePageView"
+    Title="Home">
+    <Grid Background="{StaticResource DefaultBackground}"
+          Grid.RowDefinitions="Auto, *"
+          Margin="{StaticResource PageTopOverlapMargin}">
+        <Grid Style="{StaticResource ShadowGridStyle}" />
+        <Grid Grid.RowSpan="2" Background="{OnPlatform Default={StaticResource PageGradientPinkBackground},
+                                                       MacCatalyst={StaticResource HomeGradientBrushMacCatalyst},
+                                                       WinUI={StaticResource HomeGradientBrush}}">
+            <ScrollView>
+                <Grid Padding="{OnPlatform Default='0, 24', MacCatalyst='0, 20, 0, 30', WinUI='0, 20, 0, 30'}"
+                      MaximumWidthRequest="1500"
+                      MinimumWidthRequest="{OnIdiom Phone=-1, Desktop=540}"
+                      RowDefinitions="*, Auto, *, Auto"
+                      RowSpacing="{OnPlatform Android=32, iOS=32, MacCatalyst=60, WinUI=80}"
+                      VerticalOptions="{OnIdiom Default=Start, Desktop=Fill}">
+                    <VerticalStackLayout Padding="{OnIdiom Phone='32, 0', Desktop='64, 48, 64, 0'}"
+                                         VerticalOptions="End"
+                                         Spacing="{OnPlatform iOS=16, Android=32, MacCatalyst=18, WinUI=18}">
+                        <controls:GradientTextView FontSize="{OnPlatform iOS=42, Android=42, MacCatalyst=64, WinUI=64}"
+                                                   Margin="{OnIdiom Default='0', Desktop='0'}"
+                                                   Style="{StaticResource DefaultGradientTextViewStyle}"
+                                                   HorizontalTextAlignment="Center">
+                            <controls:GradientTextView.Lines>
+                                <x:String>Supercharging</x:String>
+                                <x:String>AI-Powered Applications</x:String>
+                            </controls:GradientTextView.Lines>
+                        </controls:GradientTextView>
+                        <Label FontFamily="MetricRegular"
+                               HorizontalTextAlignment="Center"
+                               LineBreakMode="WordWrap"
+                               MinimumWidthRequest="{OnIdiom Phone=-1, Desktop=200}"
+                               FontSize="{OnPlatform Default=24, iOS=20, Android=24}"
+                               Text="Build AI-powered apps that look great, are easy to use, and rely on accurate, trustworthy data—&#x0a;so they deliver real value where it counts." />
+                    </VerticalStackLayout>
+                    <Grid Grid.Row="1" Padding="{OnIdiom Phone='32, 0', Desktop='64, 0'}">
+                        <telerik:RadPromptInput x:Name="SearchPromptInput"
+                                                VerticalOptions="Center"
+                                                Margin="{OnPlatform Default=0, Android='10, 0', MacCatalyst='10, 0', WinUI='0, 0'}"
+                                                DisplayMode="Compact"
+                                                Message="{Binding CurrentMessage}"
+                                                SendMessageCommand="{Binding SendChatMessageCommand}"
+                                                Placeholder="Ask about features, deployment, security, integrations..."/>
+                    </Grid>
+                    <Grid Grid.Row="2" 
+                          RowDefinitions="Auto, Auto"
+                          RowSpacing="{OnIdiom Phone=12, Desktop=4}"
+                          Margin="24, 0"
+                          VerticalOptions="Start">
+                        <Label HorizontalOptions="Center"
+                               Style="{StaticResource Header24LabelStyle}"
+                               Text="Explore Demos" />
+                        <layouts:FlexLayout Grid.Row="1"
+                                            AlignItems="{OnIdiom Phone=Stretch, Default=Start}"
+                                            BindableLayout.ItemsSource="{Binding NavigationItems}"
+                                            Direction="{OnIdiom Phone=Column, Default=Row}"
+                                            JustifyContent="{OnIdiom Phone=Start, Default=Center}"
+                                            Wrap="{OnIdiom Phone=NoWrap, Default=Wrap}">
+                            <BindableLayout.ItemTemplate>
+                                <DataTemplate>
+                                    <telerik:RadTemplatedButton helpers:DesktopUtils.MouseOverCursorType="Hand"
+                                                                Command="{Binding BindingContext.NavigateCommand, Source={x:Reference HomePageView}}"
+                                                                CommandParameter="{Binding Route}"
+                                                                Style="{StaticResource HomeCardButtonStyle}">
+                                        <telerik:RadTemplatedButton.Behaviors>
+                                            <behaviors:SimultaneousTouchBehavior />
+                                            <behaviors:ResetTemplateOnClickBehavior />
+                                        </telerik:RadTemplatedButton.Behaviors>
+                                        <HorizontalStackLayout Style="{StaticResource HomeCardContentLayoutStyle}">
+                                            <Image Aspect="Center" Source="{Binding Icon}" />
+                                            <Label Style="{StaticResource HomeCardLabelStyle}" Text="{Binding Title}" />
+                                        </HorizontalStackLayout>
+                                    </telerik:RadTemplatedButton>
+                                </DataTemplate>
+                            </BindableLayout.ItemTemplate>
+                        </layouts:FlexLayout>
+                    </Grid>
+
+                    <Label Grid.Row="3"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           VerticalOptions="End"
+                           Text="{OnIdiom Default='Copyright © 2026 Progress Software.&#x0A;All rights reserved. Progress® AI Powered', Desktop='Copyright © 2026 Progress Software. All rights reserved. Progress® AI Powered'}"
+                           Margin="{OnIdiom Phone='24, 0', Desktop='0'}"
+                           Opacity="0.5"
+                           AutomationId="FooterCopyright" />
+                </Grid>
+            </ScrollView>
+        </Grid>
+    </Grid>
+</pages:PageBase>

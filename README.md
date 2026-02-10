@@ -1,4 +1,4 @@
-# Progress Agentic RAG + Telerik UI for .NET MAUI Demo
+﻿# Progress Agentic RAG + Telerik UI for .NET MAUI Demo
 
 A comprehensive demo application showcasing the powerful integration between **Progress Agentic RAG AI-powered search capabilities** and **Telerik UI for .NET MAUI components**. This application demonstrates how to build intelligent, data-driven cross-platform mobile and desktop interfaces that combine enterprise-grade AI retrieval with beautiful, functional user interfaces.
 
@@ -17,6 +17,66 @@ This demo application illustrates how to:
 - Develop conversational AI interfaces with streaming responses
 - Generate customized content based on user inputs
 - Deploy cross-platform AI-powered applications (Android, iOS, Windows, macOS)
+
+## 📸 Screenshots
+
+### Desktop & Mobile Views
+
+<table>
+  <tr>
+    <td width="50%">
+      <img src="screenshots/mobile.png" alt="Mobile View" />
+      <p align="center"><strong>Mobile View</strong></p>
+    </td>
+    <td width="50%">
+      <img src="screenshots/desktop.png" alt="Desktop View" />
+      <p align="center"><strong>Desktop View</strong></p>
+    </td>
+  </tr>
+</table>
+
+### iOS Screenshots - All Pages
+
+<details>
+<summary>Click to view iOS screenshots</summary>
+
+<table>
+  <tr>
+    <td width="33%">
+      <img src="screenshots/iOS-1.png" alt="iOS Screenshot 1" />
+    </td>
+    <td width="33%">
+      <img src="screenshots/iOS-2.png" alt="iOS Screenshot 2" />
+    </td>
+    <td width="33%">
+      <img src="screenshots/iOS-3.png" alt="iOS Screenshot 3" />
+    </td>
+  </tr>
+  <tr>
+    <td width="33%">
+      <img src="screenshots/iOS-4.png" alt="iOS Screenshot 4" />
+    </td>
+    <td width="33%">
+      <img src="screenshots/iOS-5.png" alt="iOS Screenshot 5" />
+    </td>
+    <td width="33%">
+      <img src="screenshots/iOS-6.png" alt="iOS Screenshot 6" />
+    </td>
+  </tr>
+  <tr>
+    <td width="33%">
+      <img src="screenshots/iOS-7.png" alt="iOS Screenshot 7" />
+    </td>
+    <td width="33%">
+      <img src="screenshots/iOS-8.png" alt="iOS Screenshot 8" />
+    </td>
+    <td width="33%">
+      <img src="screenshots/iOS-9.png" alt="iOS Screenshot 9" />
+    </td>
+  </tr>
+</table>
+
+</details>
 
 ## 🏗️ Architecture
 
@@ -45,15 +105,15 @@ This demo application illustrates how to:
 │  └─────────────────────────────────────────────────────────────┘    │
 │  ┌─────────────────────────────────────────────────────────────┐    │
 │  │              Behaviors (Reusable)                           │    │
-│  │  - BusyIndicatorAnimationBehavior                          │    │
-│  │  - ChatScrollToBottomBehavior                              │    │
-│  │  - CollectionViewResponsiveLayoutBehavior                  │    │
-│  │  - DynamicChartSeriesBehavior                              │    │
-│  │  - LabelPointerPressedOverlayBehavior                      │    │
-│  │  - ResponsiveGridLayoutBehavior                            │    │
-│  │  - SimultaneousTouchBehavior                               │    │
-│  │  - ToastMessageOnClickBehavior                             │    │
-│  │  - VisualStateFocusBehavior                                │    │
+│  │  - BusyIndicatorAnimationBehavior                           │    │
+│  │  - ChatScrollToBottomBehavior                               │    │
+│  │  - CollectionViewResponsiveLayoutBehavior                   │    │
+│  │  - DynamicChartSeriesBehavior                               │    │
+│  │  - LabelPointerPressedOverlayBehavior                       │    │
+│  │  - ResponsiveGridLayoutBehavior                             │    │
+│  │  - SimultaneousTouchBehavior                                │    │
+│  │  - ToastMessageOnClickBehavior                              │    │
+│  │  - VisualStateFocusBehavior                                 │    │
 │  └─────────────────────────────────────────────────────────────┘    │
 ├─────────────────────────────────────────────────────────────────────┤
 │                      Telerik UI for .NET MAUI                       │

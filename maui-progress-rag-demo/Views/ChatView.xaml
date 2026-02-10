@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:behaviors="clr-namespace:MauiProgressRagDemo.Behaviors"
+             x:Class="MauiProgressRagDemo.Views.ChatView">
+    <Grid RowDefinitions="Auto, Auto, *" Background="{StaticResource DefaultBackground}">
+        <telerik:RadBorder Style="{StaticResource ChatViewHeaderSeparatorStyle}" />
+        <Grid x:Name="HeaderGrid"
+              ColumnDefinitions="*, Auto"
+              ColumnSpacing="8"
+              Style="{StaticResource ChatViewHeaderGridStyle}">
+            <Label Text="{Binding ChatTitle}"
+                   VerticalOptions="Center"
+                   MaxLines="1"
+                   LineBreakMode="TailTruncation"
+                   HorizontalOptions="Start"/>
+            <telerik:RadTemplatedButton Grid.Column="1" HorizontalOptions="End"
+                                        VerticalOptions="Center"
+                                        Style="{StaticResource ShareButtonStyle}">
+                <telerik:RadTemplatedButton.Behaviors>
+                    <behaviors:ToastMessageOnClickBehavior />
+                </telerik:RadTemplatedButton.Behaviors>
+            <Grid ColumnDefinitions="Auto, *"
+                      ColumnSpacing="8">
+                    <Image Source="share.png"
+                           HorizontalOptions="{Binding HorizontalTextAlignment, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"
+                           VerticalOptions="{Binding VerticalTextAlignment, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"/>
+                    <Label Grid.Column="1"
+                           Text="Share"
+                           FontFamily="{Binding FontFamily, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"
+                           FontSize="{Binding FontSize, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"
+                           FontAttributes="{Binding FontAttributes, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"
+                           TextColor="{Binding TextColor, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"
+                           HorizontalTextAlignment="{Binding HorizontalTextAlignment, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"
+                           VerticalTextAlignment="{Binding VerticalTextAlignment, Source={RelativeSource AncestorType={x:Type telerik:RadTemplatedButton}}}"/>
+                </Grid>
+            </telerik:RadTemplatedButton>
+        </Grid>
+        <Grid x:Name="ContentGrid"
+                Grid.Row="2"
+                RowDefinitions="*"
+                Margin="{OnPlatform Default='16, 0', MacCatalyst='64, 0', WinUI='64, 0'}">
+            <telerik:RadChat x:Name="Chat"
+                             MaximumWidthRequest="{OnPlatform MacCatalyst={StaticResource MaximumContentWidth}, WinUI={StaticResource MaximumContentWidth}}"
+                             Background="Transparent"
+                             Author="{Binding UserAuthor}"
+                             ItemsSource="{Binding ChatMessages}"
+                             Message="{Binding CurrentMessage}"
+                             Margin="{OnPlatform Default='0, 0, 0, 24', MacCatalyst='0, 24, 0, 64', WinUI='0, 24, 0, 64'}"
+                             SendMessageCommand="{Binding SendChatMessageCommand}">
+                <telerik:RadChat.Behaviors>
+                    <behaviors:ChatScrollToBottomBehavior BindingContext="{Binding Source={x:Reference Chat}, Path=BindingContext}" 
+                                                  ScrollToBottomCommand="{Binding ScrollToBottomCommand}" />
+                </telerik:RadChat.Behaviors>
+                <telerik:RadChat.TypingIndicator>
+                    <telerik:TypingIndicator ItemsSource="{Binding TypingIndicatorAuthors}"
+                                             Text=""
+                                             IsVisible="{Binding IsTypingIndicatorVisible}" />
+                </telerik:RadChat.TypingIndicator>
+            </telerik:RadChat>
+        </Grid>
+    </Grid>
+</ContentView>

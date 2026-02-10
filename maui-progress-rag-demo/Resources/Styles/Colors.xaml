@@ -1,0 +1,351 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!-- Note: For Android please see also Platforms\Android\Resources\values\colors.xml -->
+
+    <Color x:Key="Primary">#512BD4</Color>
+    <Color x:Key="PrimaryDark">#ac99ea</Color>
+    <Color x:Key="PrimaryDarkText">#242424</Color>
+    <Color x:Key="Secondary">#DFD8F7</Color>
+    <Color x:Key="SecondaryDarkText">#9880e5</Color>
+    <Color x:Key="Tertiary">#2B0B98</Color>
+
+    <Color x:Key="White">White</Color>
+    <Color x:Key="Black">Black</Color>
+    <Color x:Key="Magenta">#D600AA</Color>
+    <Color x:Key="MidnightBlue">#190649</Color>
+    <Color x:Key="OffBlack">#1f1f1f</Color>
+
+    <Color x:Key="Gray100">#E1E1E1</Color>
+    <Color x:Key="Gray200">#C8C8C8</Color>
+    <Color x:Key="Gray300">#ACACAC</Color>
+    <Color x:Key="Gray400">#919191</Color>
+    <Color x:Key="Gray500">#6E6E6E</Color>
+    <Color x:Key="Gray600">#404040</Color>
+    <Color x:Key="Gray900">#212121</Color>
+    <Color x:Key="Gray950">#141414</Color>
+
+    <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
+    <SolidColorBrush x:Key="TertiaryBrush" Color="{StaticResource Tertiary}"/>
+    <SolidColorBrush x:Key="WhiteBrush" Color="{StaticResource White}"/>
+    <SolidColorBrush x:Key="BlackBrush" Color="{StaticResource Black}"/>
+
+    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
+    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
+    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}"/>
+    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}"/>
+    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}"/>
+    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
+    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
+    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
+    <!--my Styles-->
+    
+    <!-- Base colors -->
+    <Color x:Key="ColorWhite">#FFFFFF</Color>
+    <Color x:Key="ColorBlack">#000000</Color>
+    <Color x:Key="ColorLightGray">#F8F8F8</Color>
+    <Color x:Key="ColorShadowGray">#ECECEC</Color>
+
+    <!-- Transparent / opacity variants -->
+    <Color x:Key="ColorShadowGray40">#66ECECEC</Color>
+    <Color x:Key="ColorWhite10">#1AFFFFFF</Color>
+
+    <!-- Accent background colors -->
+    <Color x:Key="ColorRadialBlue">#E1ECF8</Color>
+    <Color x:Key="ColorRadialPurple">#EFE5F6</Color>
+
+    <Color x:Key="DefaultBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="CardBackgroundColor">#F8F9F9</Color>
+    <Color x:Key="CardPointerOverBackgroundColor">#FFFFFF</Color>
+    <Color x:Key="CardBorderColor">#FFFFFF</Color>
+    <Color x:Key="ChatBubbleBackgroundColor">#FFA1B0C7</Color>
+    <Color x:Key="DefaultBorderColor">#FFA1B0C7</Color>
+    <Color x:Key="ChatTypeIndicatorColor">#898c90</Color>
+
+    <RadialGradientBrush x:Key="HomeGradientBrush" Center="0.5, 0.8">
+        <GradientStop Color="#33FFFFFF" Offset="1.0" />
+        <GradientStop Color="#E9EDFF" Offset="0.6" />
+        <GradientStop Color="#E8EEFF" Offset="0.3" />
+        <GradientStop Color="#F1F7FF" Offset="0.0" />
+    </RadialGradientBrush>
+    <RadialGradientBrush x:Key="HomeGradientBrushMacCatalyst" Center="0.5,0.5" Radius="0.4">
+        <GradientStop Color="#FFFFFF" Offset="0.0" />
+        <GradientStop Color="#99F3D9FF" Offset="0.0" />
+        <GradientStop Color="#33D9E8FF" Offset="0.45" />
+        <GradientStop Color="#FBFBFB" Offset="0.75" />
+        <GradientStop Color="#FFFFFF" Offset="1.0" />
+    </RadialGradientBrush>
+    <LinearGradientBrush x:Key="DefaultGradientBrush" StartPoint="0,0" EndPoint="0.97,0.26">
+        <GradientStop Color="#C158E4" Offset="0.1199" />
+        <GradientStop Color="#00BBFF" Offset="0.4933" />
+        <GradientStop Color="#001DFF" Offset="0.8812" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="HomeCardPointerOverBrush" StartPoint="0,0" EndPoint="0.97,0.26">
+        <GradientStop Color="#C158E4" Offset="0.1199" />
+        <GradientStop Color="#00BBFF" Offset="0.4933" />
+        <GradientStop Color="#001DFF" Offset="0.8812" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="HomeCardPressedOverBrush" StartPoint="0,0" EndPoint="0.97,0.26">
+        <GradientStop Color="#C158E4" Offset="0.1199" />
+        <GradientStop Color="#00BBFF" Offset="0.4933" />
+        <GradientStop Color="#001DFF" Offset="0.8812" />
+    </LinearGradientBrush>
+
+    <RadialGradientBrush x:Key="GradientBackground1" Center="0.5,0.35" Radius="1.2">
+        <GradientStop Color="#FFFFFF" Offset="0.0" />
+        <GradientStop Color="#F6F7FF" Offset="0.3" />
+        <GradientStop Color="#E7EBFF" Offset="0.6" />
+        <GradientStop Color="#DDE6FF" Offset="1.0" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush x:Key="PageGradientBackground">
+        <GradientStop Color="#FFFFFF" Offset="1.0" />
+        <GradientStop Color="#F0FBFF" Offset="0.6" />
+        <GradientStop Color="#F7F3FD" Offset="0.3" />
+        <GradientStop Color="#F8F1FD" Offset="0.0" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush x:Key="PageGradientPinkBackground">
+        <GradientStop Color="#FFFFFF" Offset="1.0" />
+        <GradientStop Color="#F7F3FD" Offset="0.3" />
+        <GradientStop Color="#F8F1FD" Offset="0.6" />
+        <GradientStop Color="#F0FBFF" Offset="0.0" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush x:Key="PageBottomGradientBackground" Center="0.5, 1">
+        <GradientStop Color="#FFFFFF" Offset="1.0" />
+        <GradientStop Color="#F7F3FD" Offset="0.6" />
+        <GradientStop Color="#F0FBFF" Offset="0.3" />
+        <GradientStop Color="#F8F1FD" Offset="0.0" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush x:Key="PageValueGradientBackground" Center="0.5, 1">
+        <GradientStop Color="#DFF1FB" Offset="0.0" />
+        <GradientStop Color="#DFF1FB" Offset="0.6" />
+        <GradientStop Color="#EDE3F6" Offset="0.4" />
+        <GradientStop Color="#FFFFFF" Offset="0.9" />
+        <GradientStop Color="#f8f8f8" Offset="1.0" />
+    </RadialGradientBrush>
+
+    <LinearGradientBrush x:Key="InputGradientBrush" StartPoint="0,0" EndPoint="0.97,0.26">
+        <GradientStop Color="#C158E4" Offset="0.1199" />
+        <GradientStop Color="#00BBFF" Offset="0.4933" />
+        <GradientStop Color="#001DFF" Offset="0.8812" />
+    </LinearGradientBrush>
+
+    <RadialGradientBrush x:Key="RadialGradientBrush">
+        <GradientStop Color="#E4DAEA" Offset="0.15" />
+        <GradientStop Color="#E6F4FF" Offset="0.35" />
+        <GradientStop Color="#FFFFFF" Offset="1.0" />
+    </RadialGradientBrush>
+
+    <LinearGradientBrush x:Key="PaneShadowGradientBrush" StartPoint="0,0" EndPoint="1,0">
+        <GradientStop Color="#00FFFFFF" Offset="0.00"/>
+        <GradientStop Color="#CCFAFAFA" Offset="0.85"/>
+        <GradientStop Color="#CCECECEC" Offset="1.00"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="PageShadowBrush" StartPoint="0,0" EndPoint="0,1" >
+        <GradientStop Color="#17000000" Offset="0.0" />
+        <GradientStop Color="Transparent" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="ButtonGradientBrush" StartPoint="0,0" EndPoint="0.77,1">
+        <GradientStop Offset="0.1985" Color="#c158e4" />
+        <GradientStop Offset="0.8302" Color="#001dff" />
+    </LinearGradientBrush>
+
+    <!-- Header background -->
+    <LinearGradientBrush x:Key="RagValueResultsHeaderBackgroundBrushMobile" StartPoint="0,0" EndPoint="0, 1">
+        <GradientStop Color="#ffffff" Offset="0.0"/>
+        <GradientStop Color="#f8f8f8" Offset="0.1"/>
+        <GradientStop Color="#E1EBF6" Offset="0.8"/>
+        <GradientStop Color="#EEE5F6" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="RagValueResultsHeaderBackgroundBrush"
+                         StartPoint="0,0"
+                         EndPoint="0,1">
+        <GradientStop Color="{StaticResource ColorWhite}" Offset="0.0" />
+        <GradientStop Color="{StaticResource ColorLightGray}" Offset="0.7" />
+        <GradientStop Color="{StaticResource ColorLightGray}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <!-- Bottom shadow -->
+    <LinearGradientBrush x:Key="RagValueResultsBottomShadowBrush"
+                         StartPoint="0,0"
+                         EndPoint="0,1">
+        <GradientStop Color="Transparent" Offset="0" />
+        <GradientStop Color="{StaticResource ColorShadowGray40}" Offset="1.0" />
+    </LinearGradientBrush>
+
+    <LinearGradientBrush x:Key="RagValueResultsLinearBackgroundBrush"
+                         StartPoint="0,0"
+                         EndPoint="1,0">
+        <GradientStop Color="#66F8F8F8" Offset="0.0" />
+        <GradientStop Color="#DFEDF8" Offset="0.2" />
+        <GradientStop Color="#F8F1FD" Offset="0.6" />
+        <GradientStop Color="#F8F1FD" Offset="0.8" />
+        <GradientStop Color="#66F8F8F8" Offset="1.0" />
+    </LinearGradientBrush>
+
+      <LinearGradientBrush x:Key="RagValueResultsLinearBackgroundBrush_MacCatalyst"
+                         StartPoint="0,0"
+                         EndPoint="1,0">
+        <GradientStop Color="#22F8F8F8" Offset="0.0"/>
+        <GradientStop Color="#DFEDF8" Offset="0.2"/>
+        <GradientStop Color="#F8F1FD" Offset="0.6"/>
+        <GradientStop Color="#F8F1FD" Offset="0.8"/>
+        <GradientStop Color="#22F8F8F8" Offset="1.0"/>
+    </LinearGradientBrush>
+
+    <RadialGradientBrush x:Key="IntelligentSearchBackgroundBrush" Center="0.5,0.4" Radius="0.8">
+        <GradientStop Color="#F3D9FF" Offset="0.0" />
+        <GradientStop Color="#33D9E8FF" Offset="0.45" />
+        <GradientStop Color="#FBFBFB" Offset="0.75" />
+        <GradientStop Color="#FBFBFB" Offset="1.0" />
+    </RadialGradientBrush>
+
+    <RadialGradientBrush x:Key="AgenticRagValueBackgroundMobile" Center="0.5,1">
+        <GradientStop Color="#FFFFFF" Offset="1.0"/>
+        <GradientStop Color="#F7EEFF" Offset="0.6"/>
+        <GradientStop Color="#EBF5FF" Offset="0.3"/>
+        <GradientStop Color="#F7EEFF" Offset="0.0"/>
+    </RadialGradientBrush>
+
+    <SolidColorBrush x:Key="InputBorderBrush" Color="{StaticResource DefaultBorderColor}" />
+    <SolidColorBrush x:Key="InputBackground" Color="{StaticResource DefaultBackgroundColor}" />
+    <SolidColorBrush x:Key="DefaultBorderBrush" Color="{StaticResource DefaultBorderColor}" />
+    <SolidColorBrush x:Key="CardBorderBrush" Color="{StaticResource CardBorderColor}" />
+    <SolidColorBrush x:Key="DefaultBackground" Color="{StaticResource DefaultBackgroundColor}" />
+
+    <!-- Shadows  -->
+    <Shadow x:Key="EditorShadow"
+            Offset="0, 0"
+            Radius="4"
+            Brush="#9ec5fe" />
+    
+    <Shadow x:Key="CardShadow"
+            Offset="0,2"
+            Radius="{OnPlatform Default=7, iOS=4}"
+            Brush="#20000000" />
+
+    <Shadow x:Key="EntryShadow" 
+            Offset="0, 2"
+            Radius="{OnPlatform Default=7, iOS=4}"
+            Brush="#16000000" />
+
+    <!-- Shadow Elevation 1 -->
+    <Shadow x:Key="BoxShadow"
+            Brush="#000000"
+            Offset="0, 1"
+            Opacity="0.08"
+            Radius="3"/>
+
+    <!-- Shadow Elevation 1 -->
+    <Shadow x:Key="ShadowElevation1"
+            Brush="#000000"
+            Offset="0, 2"
+            Opacity="{OnIdiom Default=0.10, Desktop=0.09}"
+            Radius="3"/>
+
+    <!-- Shadow Elevation 2 -->
+    <Shadow x:Key="ShadowElevation2"
+            Brush="#000000"
+            Offset="0, 4"
+            Opacity="0.10"
+            Radius="6"/>
+
+    <!-- Shadow Elevation 3 -->
+    <Shadow x:Key="ShadowElevation3"
+            Brush="#000000"
+            Offset="0, 6"
+            Opacity="0.11"
+            Radius="8"/>
+
+    <!-- Shadow Elevation 4 -->
+    <Shadow x:Key="ShadowElevation4"
+            Brush="#000000"
+            Offset="0, 8"
+            Opacity="0.11"
+            Radius="10"/>
+
+    <!-- Shadow Elevation 5 -->
+    <Shadow x:Key="ShadowElevation5"
+            Brush="#000000"
+            Offset="0, 10"
+            Opacity="0.11"
+            Radius="12"/>
+
+    <Shadow x:Key="ChatViewHeaderSeparatorShadow"
+            Brush="#000000" 
+            Opacity="0.08" 
+            Offset="0,2" 
+            Radius="8" />
+
+    <Shadow x:Key="ChatImageCardShadow" Brush="#000000" Opacity="0.08" Offset="0,2" Radius="4" />
+
+    <!-- MENU COLORS & BRUSHES -->
+    <Color x:Key="MenuBackgroundColor">#ECEFF4</Color>
+    <Color x:Key="MenuBorderColor">#BACAE3</Color>
+    <Color x:Key="MenuBorderLightColor">#17000000</Color>
+    <Color x:Key="DescriptionLabelColor">#535b6a</Color>
+    <Color x:Key="DefaultTextColor">#212529</Color>
+    <Color x:Key="InputTextColor">#212529</Color>
+    <Color x:Key="ButtonTextColor">#212529</Color>
+    <Color x:Key="RagValueTextColor">#99000000</Color>
+    <Color x:Key="AccentBlueColor">#225EFF</Color>
+    <Color x:Key="ButtonBorderColor">#BACAE3</Color>
+    <Color x:Key="SubHeaderTextColor">#535b6a</Color>
+    <Color x:Key="SearchButtonBackground">#A1B0C7</Color>
+    <Color x:Key="SearchButtonBackgroundDimmed">#a1b0c7</Color>
+    <Color x:Key="PlaceholderColor">#a1b0c7</Color>
+    <Color x:Key="DefaultTextColorAlpha33">#33212529</Color>
+    <Color x:Key="ActiveBlueColorAlpha40">#660D6EFD</Color>
+
+    <Color x:Key="GradientPinkColor">#c158e4</Color>
+    <Color x:Key="GradientBlueColor">#001dff</Color>
+    <Color x:Key="LightPurpleBackground">#FDFBFF</Color>
+    <Color x:Key="LightGrayBorder">#edeff1</Color>
+    <Color x:Key="LightGrayBorder2">#EBECEF</Color>
+
+    <Color x:Key="EditorBorderColor">#c8d7ff</Color>
+    <Color x:Key="RagValueResultsTextColor">#323130</Color>
+    <Color x:Key="ActionTextColor">#0D6EFD</Color>
+
+    <Color x:Key="ShareButtonPointerOverBackgroundColor">#EEEEEE</Color>
+    <Color x:Key="ShareButtonPressedBackgroundColor">#DBDCDD</Color>
+    <Color x:Key="ShareButtonPressedBorderColor">#C4C5C6</Color>
+
+    <Color x:Key="ChatViewHeaderSeparatorBorderColor">#14000000</Color>
+    <SolidColorBrush x:Key="ChatViewHeaderSeparatorBorderBrush" Color="{StaticResource ChatViewHeaderSeparatorBorderColor}" />
+
+    <SolidColorBrush x:Key="MenuBorderBrush" Color="{StaticResource MenuBorderColor}" />
+    <SolidColorBrush x:Key="MenuBackgroundBrush" Color="{StaticResource MenuBackgroundColor}" />
+    <SolidColorBrush x:Key="MenuBorderLightBrush" Color="{StaticResource MenuBorderLightColor}" />
+    <SolidColorBrush x:Key="ButtonBorderBrush" Color="{StaticResource ButtonBorderColor}" />
+    <SolidColorBrush x:Key="AccentBlueBrush" Color="{StaticResource AccentBlueColor}" />
+    <SolidColorBrush x:Key="CardBackgroundBrush" Color="{StaticResource CardBackgroundColor}" />
+
+    <SolidColorBrush x:Key="ShareButtonPointerOverBackgroundBrush" Color="{StaticResource ShareButtonPointerOverBackgroundColor}" />
+    <SolidColorBrush x:Key="ShareButtonPressedBackgroundBrush" Color="{StaticResource ShareButtonPressedBackgroundColor}" />
+    <SolidColorBrush x:Key="ShareButtonPressedBorderBrush" Color="{StaticResource ShareButtonPressedBorderColor}" />
+
+    <SolidColorBrush x:Key="SubHeaderTextBrush" Color="{StaticResource SubHeaderTextColor}" />
+    <SolidColorBrush x:Key="SearchButtonBackgroundBrush" Color="{StaticResource SearchButtonBackground}" />
+    <SolidColorBrush x:Key="SearchButtonBackgroundDimmedBrush" Color="{StaticResource SearchButtonBackgroundDimmed}" />
+    <SolidColorBrush x:Key="GradientPinkBrush" Color="{StaticResource GradientPinkColor}" />
+    <SolidColorBrush x:Key="GradientBlueBrush" Color="{StaticResource GradientBlueColor}" />
+    <SolidColorBrush x:Key="EditorBorderBrush" Color="{StaticResource EditorBorderColor}" />
+
+    <!-- ITEM COLORS & BRUSHES -->
+    <Color x:Key="NavigationItemTextColor">#000000</Color>
+    <Color x:Key="NavigationItemSelectedBackgroundColor">#BBFFFFFF</Color>
+
+    <SolidColorBrush x:Key="NavigationItemSelectedBackgroundBrush"
+                     Color="{StaticResource NavigationItemSelectedBackgroundColor}" />
+</ResourceDictionary>

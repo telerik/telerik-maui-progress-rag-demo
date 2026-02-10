@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<pages:PageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:MauiProgressRagDemo.Controls"
+             xmlns:telerikMaui="clr-namespace:Telerik.Maui;assembly=Telerik.Maui.Core"
+             xmlns:views="clr-namespace:MauiProgressRagDemo.Views"
+             xmlns:telerik="http://schemas.telerik.com/2022/xaml/maui"
+             xmlns:helpers="clr-namespace:MauiProgressRagDemo.Helpers"
+             xmlns:pages="clr-namespace:MauiProgressRagDemo.Pages"
+             xmlns:behaviors="clr-namespace:MauiProgressRagDemo.Behaviors"
+             x:Class="MauiProgressRagDemo.Pages.KnowledgeAssistantPage"
+             Title="Knowledge Assistant">
+    <Grid Background="{StaticResource DefaultBackground}"
+          Grid.RowDefinitions="Auto, *"
+          Margin="{StaticResource PageTopOverlapMargin}">
+        <Grid Style="{StaticResource ShadowGridStyle}" />
+        <telerik:RadNavigationView Grid.RowSpan="2" 
+                                   ExpandedPaneWidth="{OnIdiom Phone=0, Default=245}"
+                                   ExpandedModeThresholdWidth="0"
+                                   HeaderStyle="{StaticResource NavigationHeaderStyle}"
+                                   PaneStyle="{StaticResource NavigationPaneStyle}"
+                                   ControlTemplate="{StaticResource NavigationControlTemplate}"
+                                   CompactModeThresholdWidth="800"
+                                   DisplayMode="{OnIdiom Phone=Minimal, Default=Expanded}">
+            <telerik:RadNavigationView.Behaviors>
+                <behaviors:ToastMessageOnClickBehavior />
+            </telerik:RadNavigationView.Behaviors>
+            <telerik:RadNavigationView.Items>
+                <telerik:NavigationViewItem Position="Header"
+                                            Text="New Chat"
+                                            ImageSource="newchat.png"/>
+                <telerik:NavigationViewItem Position="Header"
+                                            Text="Search Chats"
+                                            ImageSource="searchicon.png"/>
+                <telerik:NavigationViewItem Position="Header"
+                                            Text="Library"
+                                            ImageSource="bookopen.png"/>
+                <telerik:NavigationViewItem Position="Footer"
+                                            ImageSource="draweruser.png"
+                                            Style="{StaticResource MenuNavigationFooterItemStyle}"/>
+                <telerik:NavigationViewItem ControlTemplate="{StaticResource MenuNavigationItemNoImageTemplate}" IsEnabled="False">
+                    <telerik:NavigationViewItem.ContentTemplate>
+                        <DataTemplate>
+                            <Label Text="Chats"
+                                   Padding="0, 24, 0, 0"
+                                   TextColor="{StaticResource PlaceholderColor}"
+                                   VerticalOptions="Fill"
+                                   VerticalTextAlignment="Center"
+                                   LineBreakMode="TailTruncation"/>
+                        </DataTemplate>
+                    </telerik:NavigationViewItem.ContentTemplate>
+                </telerik:NavigationViewItem>
+                <telerik:NavigationViewItem ControlTemplate="{StaticResource MenuNavigationItemNoImageTemplate}">
+                    <telerik:NavigationViewItem.ContentTemplate>
+                        <DataTemplate>
+                            <Label Text="How do I get started with KendoReact components?"
+                                   VerticalOptions="Fill"
+                                   VerticalTextAlignment="Center"
+                                   LineBreakMode="TailTruncation"/>
+                        </DataTemplate>
+                    </telerik:NavigationViewItem.ContentTemplate>
+                </telerik:NavigationViewItem>
+                <telerik:NavigationViewItem ControlTemplate="{StaticResource MenuNavigationItemNoImageTemplate}">
+                    <telerik:NavigationViewItem.ContentTemplate>
+                        <DataTemplate>
+                            <Label Text="What are the best KendoReact components for data visualization?"
+                                   VerticalOptions="Fill"
+                                   VerticalTextAlignment="Center"
+                                   LineBreakMode="TailTruncation" />
+                        </DataTemplate>
+                    </telerik:NavigationViewItem.ContentTemplate>
+                </telerik:NavigationViewItem>
+                <telerik:NavigationViewItem ControlTemplate="{StaticResource MenuNavigationItemNoImageTemplate}">
+                    <telerik:NavigationViewItem.ContentTemplate>
+                        <DataTemplate>
+                            <Label Text="How to implement theming and styling in KendoReact?"
+                                   Margin="0, 0, 12, 0"
+                                   VerticalOptions="Fill"
+                                   VerticalTextAlignment="Center"
+                                   LineBreakMode="TailTruncation" />
+                        </DataTemplate>
+                    </telerik:NavigationViewItem.ContentTemplate>
+                </telerik:NavigationViewItem>
+            </telerik:RadNavigationView.Items>
+            <Grid>
+                <ScrollView IsVisible="{Binding HasConversationStarted, Converter={StaticResource InvertedBooleanConverter}}">
+                    <Grid MinimumWidthRequest="{OnIdiom Default=0, Desktop=450}"
+                          VerticalOptions="{OnPlatform iOS=Start, Android=Start}">
+                        <Image Source="vectors.png"
+                               InputTransparent="True"
+                               VerticalOptions="Start"
+                               HorizontalOptions="End"
+                               Opacity="{OnPlatform Default=0, MacCatalyst=1, WinUI=1}"
+                               Aspect="Center"
+                               ZIndex="1" />
+                        <Grid RowDefinitions="Auto, Auto, *"
+                              RowSpacing="16"
+                              Padding="{OnIdiom Default='0, 24', Desktop='64, 64, 80, 40'}"
+                              VerticalOptions="{OnPlatform iOS=Start, Android=Start}">
+                            <OnPlatform x:TypeArguments="View">
+                                <On Platform="iOS, Android">
+                                    <controls:GradientTextView Margin="{OnPlatform Android={StaticResource PageMarginLeftRight}, iOS={StaticResource PageMarginLeftRight}}"
+                                                                Style="{StaticResource DefaultGradientTextViewStyle}"
+                                                                HorizontalTextAlignment="Center">
+                                        <controls:GradientTextView.Lines>
+                                            <x:String>Progress Agentic RAG Knowledge Assistant</x:String>
+                                        </controls:GradientTextView.Lines>
+                                    </controls:GradientTextView>
+                                </On>
+                                <On Platform="WinUI, MacCatalyst">
+                                    <controls:GradientTextView Margin="{OnPlatform Android={StaticResource PageMarginLeftRight}, iOS={StaticResource PageMarginLeftRight}}"
+                                                                Style="{StaticResource DefaultGradientTextViewStyle}">
+                                        <controls:GradientTextView.Lines>
+                                            <x:String>Progress Agentic RAG</x:String>
+                                            <x:String>Knowledge Assistant</x:String>
+                                        </controls:GradientTextView.Lines>
+                                    </controls:GradientTextView>
+                                </On>
+                            </OnPlatform>
+
+                            <Label Grid.Row="1"
+                                   HorizontalOptions="Start"
+                                   Text="Use AI search to quickly find accurate, relevant information about Progress Agentic RAG—its features, capabilities, and best practices."
+                                   Style="{StaticResource SubHeaderLabelStyle}"
+                                   Margin="{OnPlatform Android={StaticResource PageMarginLeftRight}, iOS={StaticResource PageMarginLeftRight}}"
+                                   MaximumWidthRequest="470" />
+
+                            <Grid Grid.Row="2"
+                                  Background="{StaticResource PageGradientPinkBackground}"
+                                  VerticalOptions="End"
+                                  Margin="{OnPlatform Android='0', iOS='0, 12, 0, 0', MacCatalyst='0, 25, 0, 0', WinUI='0, 25, 0, 0'}">
+                                <Grid MaximumWidthRequest="{OnPlatform MacCatalyst=736, WinUI=736}"
+                                      RowDefinitions="Auto, Auto, Auto"
+                                      Margin="{OnPlatform Android={StaticResource PageMarginLeftRight}, iOS={StaticResource PageMarginLeftRight}}"
+                                      RowSpacing="{OnIdiom Default=16, Desktop=10}">
+                                    <controls:MarkdownView FontSize="{OnPlatform Default=20, iOS=18}"
+                                                           FontFamily="MetricRegular"
+                                                           TextColor="{StaticResource DefaultTextColor}"
+                                                           Margin="{OnPlatform Default='0, 0, 0, 16', Android=0, iOS=0}">
+                                        <controls:MarkdownView.Text>
+                                            👋 Hello! I'm your Progress Agentic RAG AI assistant. I can help you with KendoReact questions and documentation. Try one of the suggestions below, or ask me anything about KendoReact like:                                         
+                                            * components
+                                            * theming
+                                            * data visualization
+                                            * and more!
+                                        </controls:MarkdownView.Text>
+                                    </controls:MarkdownView>
+                                    <telerik:RadPromptInput x:Name="SearchPromptInput"
+                                                            Grid.Row="1"
+                                                            CornerRadius="26"
+                                                            DisplayMode="Compact"
+                                                            Margin="{OnIdiom Phone='0', Desktop='10, 0'}"
+                                                            Message="{Binding CurrentMessage}"
+                                                            SendMessageCommand="{Binding SendChatMessageCommand}"
+                                                            Placeholder="Try a suggestion or ask about KendoReact..."/>
+                                    <telerik:RadWrapLayout Grid.Row="2"
+                                                           HorizontalOptions="Start"
+                                                           VerticalOptions="{OnIdiom Phone='Start', Desktop='Center'}"
+                                                           Orientation="Horizontal"
+                                                           Margin="{OnIdiom Phone='0', Desktop='10, 0'}"
+                                                           BindableLayout.ItemsSource="{Binding SuggestedChatMessages}">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate>
+                                                <telerik:RadTemplatedButton Content="{Binding .}"
+                                                                            helpers:DesktopUtils.MouseOverCursorType="Hand"
+                                                                            Style="{StaticResource SuggestionsButtonStyle}"
+                                                                            Command="{Binding SendMessageCommand, Source={x:Reference SearchPromptInput}}"
+                                                                            CommandParameter="{Binding .}">
+                                                    <telerik:RadTemplatedButton.Behaviors>
+                                                        <behaviors:SimultaneousTouchBehavior />
+                                                    </telerik:RadTemplatedButton.Behaviors>
+                                                </telerik:RadTemplatedButton>
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </telerik:RadWrapLayout>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                </ScrollView>
+
+                <views:ChatView IsVisible="{Binding HasConversationStarted}" />
+            </Grid>
+        </telerik:RadNavigationView>
+    </Grid>
+</pages:PageBase>
