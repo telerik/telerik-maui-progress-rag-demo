@@ -365,3 +365,4 @@ FodyWeavers.xsd
 TelerikTheming/
 
 .DS_Store
+!*/packages/*
