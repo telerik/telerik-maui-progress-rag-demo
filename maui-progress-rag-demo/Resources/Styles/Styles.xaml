@@ -322,7 +322,7 @@
         <Setter Property="FontFamily" Value="Courier New" />
     </Style>
 
-    <Style x:Key="ClosePopUpButtonStyle" TargetType="telerik:RadTemplatedButton" BasedOn="{StaticResource ShareButtonStyle}">
+    <Style x:Key="ClosePopupButtonStyle" TargetType="telerik:RadTemplatedButton" BasedOn="{StaticResource ShareButtonStyle}">
         <Setter Property="Padding" Value="8, 5, 8, 4" />
         <Setter Property="Margin" Value="0, 16, 16, 0" />
         <Setter Property="FontSize" Value="16" />

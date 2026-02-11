@@ -201,15 +201,15 @@
                             <On Platform="WinUI, MacCatalyst">
                                 <Grid>
                                     <telerik:RadPopup.Popup>
-                                        <telerik:RadPopup Placement="Center"
+                                        <telerik:RadPopup x:Name="ChartsPopup"
+                                                          Placement="Center"
                                                           IsOpen="{Binding ShouldShowCharts}"
-                                                          OutsideBackgroundColor="#30000000"
-                                                          PropertyChanged="RadPopup_PropertyChanged">
+                                                          OutsideBackgroundColor="#30000000">
                                             <Grid WidthRequest="1000"
                                                   MaximumHeightRequest="700"
                                                   RowDefinitions="Auto,*"
                                                   Background="{StaticResource DefaultBackground}">
-                                                <telerik:RadTemplatedButton Style="{StaticResource ClosePopUpButtonStyle}"
+                                                <telerik:RadTemplatedButton Style="{StaticResource ClosePopupButtonStyle}"
                                                                             Command="{Binding ToggleShouldShowChartsCommand}" />
                                                 <views:FinancialChartsView Grid.Row="1" HorizontalOptions="Center" />
                                             </Grid>

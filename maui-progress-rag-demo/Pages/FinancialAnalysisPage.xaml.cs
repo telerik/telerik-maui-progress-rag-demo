@@ -8,6 +8,10 @@ public partial class FinancialAnalysisPage : PageBase
     {
         this.InitializeComponent();
         this.BindingContext = viewModel;
+#if WINDOWS || MACCATALYST
+        // Subscribe to the PropertyChanged event of the RadPopup to set the PlacementTarget when it is created
+        this.ChartsPopup.PropertyChanged += this.RadPopup_PropertyChanged;
+#endif
     }
 
 #if WINDOWS || MACCATALYST
