@@ -1,4 +1,4 @@
-﻿# Progress Agentic RAG + Telerik UI for .NET MAUI Demo
+# Progress Agentic RAG + Telerik UI for .NET MAUI Demo
 
 A comprehensive demo application showcasing the powerful integration between **Progress Agentic RAG AI-powered search capabilities** and **Telerik UI for .NET MAUI components**. This application demonstrates how to build intelligent, data-driven cross-platform mobile and desktop interfaces that combine enterprise-grade AI retrieval with beautiful, functional user interfaces.
 
@@ -185,14 +185,12 @@ A dynamic value proposition generator that:
 
 ## 🛠️ Technology Stack
 
-- **.NET 9.0** - Latest .NET framework
+- **.NET 9.0**
 - **.NET MAUI** - Cross-platform UI framework
 - **MVVM Architecture** - Clean separation of concerns with base classes
 - **Telerik UI for .NET MAUI** - Professional UI component suite
-- **Progress.Nuclia SDK 0.1.0-preview.24** - AI integration library
-- **SkiaSharp 3.119.1** - 2D graphics for custom rendering
-- **Microsoft.Extensions.Configuration** - Configuration management
-- **Microsoft.Extensions.Logging** - Logging infrastructure
+- **Progress.Nuclia SDK** - AI integration library
+- **SkiaSharp** - 2D graphics for custom rendering
 
 ## 📦 Prerequisites
 
@@ -293,7 +291,7 @@ dotnet build -t:Run -f net9.0-ios
 dotnet build -t:Run -f net9.0-maccatalyst
 ```
 
-Alternatively, open the solution in Visual Studio 2022 and select your target platform from the dropdown.
+Alternatively, open the solution in Visual Studio 2026 and select your target platform from the dropdown.
 
 ## 🔧 Configuration
 
@@ -312,13 +310,6 @@ For production deployments, configure the following environment variables:
 | `NucliaDbVerse__ZoneId` | Zone ID for the verse Knowledge Box |
 | `NucliaDbVerse__KnowledgeBoxId` | Knowledge Box ID for documentation |
 | `NucliaDbVerse__ApiKey` | API Key for the verse Knowledge Box |
-
-### Secure Storage (Mobile Platforms)
-
-For mobile deployments, consider using platform-specific secure storage:
-- **Android:** Android Keystore
-- **iOS:** iOS Keychain
-- Utilize `Microsoft.Maui.Storage.SecureStorage` for cross-platform secure storage
 
 ## 📂 Project Structure
 
@@ -417,17 +408,6 @@ maui-progress-rag-demo/
 - **RadWrapLayout:** Responsive button layouts
 - **RadTemplatedButton:** Customizable buttons with behaviors
 
-### Advanced Behaviors
-- **DynamicChartSeriesBehavior:** Dynamically generates chart series from data
-- **BusyIndicatorAnimationBehavior:** Custom loading animations
-- **ChatScrollToBottomBehavior:** Auto-scroll chat to latest message
-- **ResponsiveGridLayoutBehavior:** Adaptive grid layouts
-- **CollectionViewResponsiveLayoutBehavior:** Responsive collection layouts
-- **ToastMessageOnClickBehavior:** Platform-specific toast notifications
-- **SimultaneousTouchBehavior:** Enhanced touch handling
-- **VisualStateFocusBehavior:** Focus state management
-- **LabelPointerPressedOverlayBehavior:** Visual feedback for interactions
-
 ### Reusable Components
 - **PopularSearchesView:** Reusable search suggestions component with bindable properties
 - **FinancialChartsView:** Standalone financial charts display
@@ -435,13 +415,6 @@ maui-progress-rag-demo/
 - **MarkdownView:** Markdown rendering with code syntax highlighting
 - **GradientTextView:** Stylized gradient text headers
 - **CodeBlockView:** Code block display with syntax highlighting
-
-### AI Integration Patterns
-- Streaming responses for real-time feedback
-- Structured data extraction (JSON schemas)
-- Multiple Knowledge Box support for different content types
-- Error handling and retry logic
-- Platform-agnostic service abstractions
 
 ## 🤝 Contributing
 
@@ -451,7 +424,7 @@ Contributions are welcome! Please feel free to submit issues and pull requests.
 
 This project is provided for demonstration purposes. Please refer to the individual product licenses:
 
-- [Telerik UI for .NET MAUI License](https://www.telerik.com/purchase/license-agreement/maui)
+- [Telerik UI for .NET MAUI License](https://www.telerik.com/purchase/license-agreement/maui-ui)
 - [Progress Agentic RAG Terms](https://www.progress.com/legal/terms-of-service)
 
 ## 📞 Support
