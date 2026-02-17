@@ -216,8 +216,15 @@ Before running this project, ensure you have:
 
 ### 1. Clone the Repository
 
+Execute the following command in your terminal to clone the demo app repository:
+
 ```bash
-git clone https://github.com/telerik/maui-progress-rag-demo.git
+git clone https://github.com/telerik/telerik-maui-progress-rag-demo.git
+```
+
+Navigate to the project directory:
+
+```bash
 cd maui-progress-rag-demo
 ```
 
@@ -262,10 +269,15 @@ Update the `maui-progress-rag-demo/appsettings.json` file with your Progress Age
 
 ### 4. Restore Dependencies
 
-Navigate to the project directory and restore dependencies:
+Navigate to the project directory:
 
 ```bash
 cd maui-progress-rag-demo
+```
+
+Restore dependencies:
+
+```bash
 dotnet restore
 ```
 
