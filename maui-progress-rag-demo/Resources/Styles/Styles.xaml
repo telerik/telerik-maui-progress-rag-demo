@@ -995,7 +995,7 @@
 
     <Style x:Key="EditorStyle" TargetType="telerik:RadEditor">
         <Setter Property="MinimumHeightRequest" Value="116" />
-        <Setter Property="PlaceholderColor" Value="{DynamicResource InputTextColor}" />
+        <Setter Property="PlaceholderColor" Value="{DynamicResource PlaceholderColor}" />
         <Setter Property="TextColor" Value="{DynamicResource InputTextColor}" />
         <Setter Property="BackgroundColor" Value="#FFFFFF" />
         <Setter Property="BorderBrush" Value="{StaticResource DefaultBorderColor}" />
@@ -1010,9 +1010,9 @@
                         <Grid ColumnDefinitions="*, Auto"
                               telerik:ViewUtils.CornerRadius="10">
                             <telerik:RadMultilineTextInput Text="{TemplateBinding Text, Mode=TwoWay}"
-                                                        Margin="{OnPlatform WinUI='0, 0, 16, 0'}"
-                                                        Style="{TemplateBinding ActualTextInputStyle}"
-                                                        AutomationId="EntryTextInput" />
+                                                           Margin="{OnPlatform WinUI='0, 0, 16, 0'}"
+                                                           Style="{TemplateBinding ActualTextInputStyle}"
+                                                           AutomationId="EntryTextInput" />
                             <telerik:RadTemplatedButton Style="{TemplateBinding ActualClearButtonStyle}"
                                                         AutomationId="EntryClearButton" />
                         </Grid>
