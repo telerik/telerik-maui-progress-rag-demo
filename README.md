@@ -122,9 +122,7 @@ This demo application illustrates how to:
 │  │  RadChat · RadCartesianChart · RadCollectionView · RadEditor │    │
 │  │  RadBottomSheet · RadNavigationView · RadBusyIndicator      │    │
 │  │  RadPromptInput · RadWrapLayout · RadTemplatedButton        │    │
-│  │  RadPopup · RadToggleButton · RadBorder · RadEffectsView    │    │
-│  │  RadAnimatedGrid · RadTextInput · RadSpeechToTextButton     │    │
-│  │  RadChatPicker · RadMultilineTextInput                      │    │
+│  │  RadPopup · RadToggleButton · RadBorder · RadLegend         │    │
 │  └─────────────────────────────────────────────────────────────┘    │
 ├─────────────────────────────────────────────────────────────────────┤
 │                        Progress Nuclia SDK                          │
@@ -415,23 +413,18 @@ maui-progress-rag-demo/
 ### Telerik UI Components
 - **RadChat:** Rich chat interface with message templates and typing indicator
 - **RadCartesianChart:** Beautiful, interactive data visualizations
+- **RadLegend:** Chart legend display
 - **RadCollectionView:** High-performance collection display with grid layout
 - **RadEditor:** Rich text editing for content input
 - **RadNavigationView:** Side drawer navigation for desktop
 - **RadBottomSheet:** Mobile-optimized chart expansion
 - **RadPopup:** Desktop modal dialogs
 - **RadBusyIndicator:** Loading states with animations
-- **RadAnimatedGrid:** Animated grid container
 - **RadPromptInput:** AI-powered input with send functionality
-- **RadTextInput:** Single-line text input control
-- **RadMultilineTextInput:** Multi-line text input control
-- **RadSpeechToTextButton:** Voice input support
-- **RadChatPicker:** Picker widget for chat suggestions
 - **RadWrapLayout:** Responsive button layouts
 - **RadTemplatedButton:** Customizable buttons with behaviors
 - **RadToggleButton:** Toggle state buttons
 - **RadBorder:** Styled border container
-- **RadEffectsView:** Visual effects and interactions
 
 ### Reusable Components
 - **PopularSearchesView:** Reusable search suggestions component with bindable properties
