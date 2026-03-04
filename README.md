@@ -415,7 +415,7 @@ maui-progress-rag-demo/
 - **RadCartesianChart:** Beautiful, interactive data visualizations
 - **RadLegend:** Chart legend display
 - **RadCollectionView:** High-performance collection display with grid layout
-- **RadEditor:** Rich text editing for content input
+- **RadEditor:** Multiline text input for content entry
 - **RadNavigationView:** Side drawer navigation for desktop
 - **RadBottomSheet:** Mobile-optimized chart expansion
 - **RadPopup:** Desktop modal dialogs
