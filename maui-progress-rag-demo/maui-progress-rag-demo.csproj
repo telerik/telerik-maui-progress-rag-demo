@@ -67,7 +67,7 @@
         <PackageReference Include="SkiaSharp" Version="3.119.1" />
         <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.1" />
         <PackageReference Include="Telerik.UI.for.Maui" Version="13.0.0" />
-        <PackageReference Include="Progress.Nuclia" Version="0.1.0-preview.24" />
+        <PackageReference Include="Progress.Nuclia" Version="1.0.0-preview2" />
     </ItemGroup>
 
     <ItemGroup>
