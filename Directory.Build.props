@@ -1,0 +1,7 @@
+<Project>
+  <PropertyGroup>
+    <TelerikVersion>13.0.0</TelerikVersion>
+    <MauiAppPlatforms>net9.0-android;net9.0-ios;net9.0-maccatalyst</MauiAppPlatforms>
+    <MauiAppPlatforms Condition="$([MSBuild]::IsOSPlatform('windows'))">$(MauiAppPlatforms);net9.0-windows10.0.19041.0</MauiAppPlatforms>
+  </PropertyGroup>
+</Project>

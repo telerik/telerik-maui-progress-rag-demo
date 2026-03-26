@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>net9.0-android;net9.0-ios;net9.0-maccatalyst</TargetFrameworks>
-        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net9.0-windows10.0.19041.0</TargetFrameworks>
+        <TargetFrameworks>$(MauiAppPlatforms)</TargetFrameworks>
 
         <!-- Note for MacCatalyst:
 		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
@@ -66,7 +65,7 @@
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.6" />
         <PackageReference Include="SkiaSharp" Version="3.119.1" />
         <PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.1" />
-        <PackageReference Include="Telerik.UI.for.Maui" Version="13.0.0" />
+        <PackageReference Include="Telerik.UI.for.Maui" Version="$(TelerikVersion)" />
         <PackageReference Include="Progress.Nuclia" Version="1.0.0-preview2" />
     </ItemGroup>
 
